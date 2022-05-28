@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 import { Logout } from '../store/actions';
 
-export default function Profile({ route, navigation }) {
+export default function PublicEventsScreen({ route, navigation }) {
 
   const dispatch = useDispatch();
   const submit = () => {
@@ -16,11 +16,11 @@ export default function Profile({ route, navigation }) {
         <Button mode='outlined'
           onPress={submit}
           style={{ marginTop: 20 }}>
-          Logout</Button>
+          Cerrar sesion</Button>
         <Button mode='outlined'
           onPress={() => navigation.navigate('Feeds')}
           style={{ marginTop: 20 }}>
-          Inicio</Button>
+          feeds</Button>
       </View>
     </View>
   )

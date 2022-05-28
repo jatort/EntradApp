@@ -6,12 +6,13 @@ import { StatusBar, View } from 'react-native';
 import Feeds from './src/screens/Feeds';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import LoginScreen from './src/screens/LoginScreen';
-import Profile from './src/screens/Profile';
+import ProfileScreen from './src/screens/ProfileScreen';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './src/store';
 import { ActivityIndicator } from 'react-native-paper';
 import Colors from './src/constants/Colors';
 import { Init } from './src/store/actions';
+
 const Stack = createSharedElementStackNavigator()
 
 const options = {
@@ -33,22 +34,10 @@ const MyStack = () => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Feeds" component={Feeds} />
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );
-
 }
-// const MyStack = () => {
-//   return (
-//     <Stack.Navigator headerMode="none">
-//       <Stack.Screen name="Feeds" component={Feeds} />
-//       <Stack.Screen name="Detail" component={DetailPage}
-//         options={options}
-//       />
-//       <Stack.Screen name="Profile" component={Profile} />
-//     </Stack.Navigator>
-//   );
-// }
 
 const AuthStack = () => {
   return (

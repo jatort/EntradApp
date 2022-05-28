@@ -7,8 +7,8 @@ import Colors from '../constants/Colors';
 import { loginBg } from '../constants/raw';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('prod@example.com');
+  const [password, setPassword] = useState('prod');
 
   const dispatch = useDispatch();
   const submit = () => {
