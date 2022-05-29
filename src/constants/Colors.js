@@ -7,4 +7,5 @@ export default {
     black: '#000',
     gray: '#666',
     darkGray: '#999',
+    purple: '#a376a9',
 }

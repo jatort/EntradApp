@@ -16,11 +16,7 @@ export default function ProfileScreen({ route, navigation }) {
         <Button mode='outlined'
           onPress={submit}
           style={{ marginTop: 20 }}>
-          Logout</Button>
-        <Button mode='outlined'
-          onPress={() => navigation.navigate('Feeds')}
-          style={{ marginTop: 20 }}>
-          Inicio</Button>
+          Cerrar Sesión</Button>
       </View>
     </View>
   )

@@ -14,7 +14,7 @@ export default function Feeds({ route, navigation }) {
     <View style={{flex: 1}}>
       <View style={styles.container}>
         <Button mode='outlined'
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => {}}
           style={{ marginTop: 20 }}>
           Perfil
         </Button>

@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
-import { Button, Surface, TextInput, Title, Text } from 'react-native-paper'
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Image, StyleSheet, View } from 'react-native';
+
 import { Login } from '../store/actions';
 import Colors from '../constants/Colors';
-import { loginBg } from '../constants/raw';
 
-export default function LoginScreen() {
+import { Button, Surface, TextInput, Text } from 'react-native-paper'
+
+import loginLogo from '../../assets/logo-clean.png'; 
+
+export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('prod@example.com');
   const [password, setPassword] = useState('prod');
 
@@ -16,17 +19,20 @@ export default function LoginScreen() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <View style={styles.loginLogoContainer}>
+        <Image source={loginLogo} style={styles.loginLogo} />
+      </View>
+      <Text style={styles.title}>Iniciar Sesión</Text>
       <Surface style={styles.box}>
         <View>
           <TextInput
-            label="Username"
+            label="Email"
             mode="outlined"
             value={username}
             onChangeText={(text) => setUsername(text)}
           />
           <TextInput
-            label="Password"
+            label="Contraseña"
             mode="outlined"
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -37,9 +43,16 @@ export default function LoginScreen() {
           color={Colors.blue}
           style={{ marginTop: 20 }}
           onPress={submit}>
-          Submit
+          Iniciar Sesión
         </Button>
       </Surface>
+      <View style={styles.registerText}>
+        <Text>¿No tienes una cuenta?</Text>
+        <Text 
+          style={styles.registerTextButton}
+          onPress={() => navigation.navigate('Register')}
+        > Registrarse</Text>
+      </View>
     </View>
   )
 }
@@ -47,9 +60,9 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: 28,
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.white,
   },
   box: {
     borderRadius: 10,
@@ -57,11 +70,37 @@ const styles = StyleSheet.create({
     padding: 20,
     height: 250,
   },
+  loginLogoContainer: {
+    flex: 1,
+    alignItems: 'center',
+
+  },
+  loginLogo: {
+    width: 200,
+    height: 120,
+    flex: 1,
+    justifyContent: 'center',
+  },
   title: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: Colors.white,
+    fontSize: 20,
+    paddingHorizontal: 5,
+    textAlign: 'left',
+    color: Colors.black,
     marginBottom: 20,
     fontWeight: 'bold'
+  },
+  registerText: {
+    fontSize: 15,
+    paddingTop: 25,
+    paddingHorizontal: 5,
+    textAlign: 'center',
+    color: Colors.black,
+    marginBottom: 20,
+    fontWeight: 'normal',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  registerTextButton: {
+    color: Colors.purple,
   }
 })

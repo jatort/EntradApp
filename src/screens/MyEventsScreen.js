@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 import { Logout } from '../store/actions';
 
-export default function PublicEventsScreen({ route, navigation }) {
+export default function MyEventsScreen({ route, navigation }) {
 
   const dispatch = useDispatch();
   const submit = () => {
@@ -13,7 +13,7 @@ export default function PublicEventsScreen({ route, navigation }) {
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
-        <Text>Listado de eventos públicos</Text>
+        <Text>Listado de mis eventos</Text>
       </View>
     </View>
   )
