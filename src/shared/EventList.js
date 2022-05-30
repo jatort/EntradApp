@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native';
 import EventCard from './EventCard';
 import Colors from '../constants/Colors';
 import { Event } from '../types/event';
+import { getAllEvents } from '../lib/event';
 
 type Props = {
   events: Event[];
@@ -14,17 +15,25 @@ type Props = {
 // los eventos en distintas url segun la pantalla
 const EventList: React.FC<Props> = (props: Props) => {
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ events, setEvents ] = useState([]);
 
   useEffect(() => {
     console.log("Rendering events");
-    console.log(props.events);
-    if (props.events.length > 0) setIsLoading(false);
-  }, [props.events]);
+    /*console.log(props.events);
+    if (props.events.length > 0) setIsLoading(false);*/
+    getAllEvents().then(events => {setEvents(events);});
+  }, []);
+
+  const renderItem = ({event}) => {
+    return (
+      <EventCard event={event} />
+    );
+  };
 
   return (
    <View style={styles.root}>
     <ScrollView>
-    { isLoading ? 
+    { events.length == 0 ? 
       <View style={styles.root}> 
       <Text style={styles.title}>{props.title} Loading</Text>
       <EventCard />
@@ -33,7 +42,10 @@ const EventList: React.FC<Props> = (props: Props) => {
       <EventCard />
       <EventCard />
       </View>:
-      <View style={styles.root}><Text style={styles.title}>{props.title} Loaded</Text></View>
+      <View style={styles.root}>
+          <Text style={styles.title}>{props.title} Loaded</Text>
+        <FlatList data={events} renderItem={renderItem} keyExtractor={event => event._id}/>
+      </View>
     }
     </ScrollView>
   </View> 
