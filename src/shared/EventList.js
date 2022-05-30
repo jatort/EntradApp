@@ -1,18 +1,22 @@
 import React from 'react';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import EventCard from './EventCard';
 import Colors from '../constants/Colors';
 import { Event } from '../types/event';
 
 type Props = {
   events: Event[];
+  apiUrl: string;
+  title: string;
 };
 
-const EventList: React.FC<Props> = ({props: Props}) => {
+// Este componente debe hacer fetch de la API para obtener
+// los eventos en distintas url segun la pantalla
+const EventList: React.FC<Props> = (props: Props) => {
   return (
    <View style={styles.root}>
     <ScrollView>
-      <Text style={styles.title}>Eventos</Text>
-      <EventCard />
+      <Text style={styles.title}>{props.title}</Text>
       <EventCard />
       <EventCard />
       <EventCard />
@@ -22,8 +26,6 @@ const EventList: React.FC<Props> = ({props: Props}) => {
   </View> 
   );
 };
-
-
 
 const styles = StyleSheet.create({
   root: {
