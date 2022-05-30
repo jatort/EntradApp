@@ -11,23 +11,32 @@ export default function MyEventsScreen({ route, navigation }) {
     dispatch(Logout())
   }
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <Text>Listado de mis eventos</Text>
-      </View>
-    </View>
+    <View style={styles.root}>
+    <ScrollView>
+      <Text style={styles.title}>Eventos</Text>
+      <EventCard />
+      <EventCard />
+      <EventCard />
+      <EventCard />
+      <EventCard />
+      <EventCard />
+    </ScrollView>
+  </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
+    backgroundColor: Colors.lightGrayPurple,
   },
-  header: {
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    marginHorizontal: 4,
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    alignSelf: 'flex-start',
+    flex: 1,
   },
 })

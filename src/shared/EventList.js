@@ -1,18 +1,13 @@
-import React from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { Button } from 'react-native-paper'
-import { useDispatch } from 'react-redux';
-import { Logout } from '../store/actions';
+import React from 'react';
+import EventCard from './EventCard';
 import Colors from '../constants/Colors';
-import EventCard from '../shared/EventCard';
+import { Event } from '../types/event';
 
-export default function LoggedEventsScreen({ route, navigation }) {
+type Props = {
+  events: Event[];
+};
 
-  const dispatch = useDispatch();
-  const submit = () => {
-    dispatch(Logout())
-  }
-
+const EventList: React.FC<Props> = ({props: Props}) => {
   return (
    <View style={styles.root}>
     <ScrollView>
@@ -25,8 +20,9 @@ export default function LoggedEventsScreen({ route, navigation }) {
       <EventCard />
     </ScrollView>
   </View> 
-  )
-}
+  );
+};
+
 
 
 const styles = StyleSheet.create({
@@ -44,3 +40,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default EventList;
