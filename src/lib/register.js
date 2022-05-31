@@ -26,7 +26,7 @@ export const Register = async (
       );
       if (response.status === 201) {
         alert("Te has registrado exitosamente");
-        return response;
+        return true;
       }
     } catch (error) {
       if (error.message === "User already exists") {
@@ -35,7 +35,7 @@ export const Register = async (
         console.log(error.message);
         alert("Error al registrarte");
       }
-      return error;
+      return false;
     }
   }
 };
