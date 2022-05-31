@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-
+import { Register } from "../requests/register";
 import Colors from "../constants/Colors";
-
+import { useDispatch } from "react-redux";
 import { Button, Surface, TextInput, Text } from "react-native-paper";
-
 
 export default function UserRegisterScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -15,8 +14,9 @@ export default function UserRegisterScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
 
+  const dispatch = useDispatch();
   const submit = () => {
-    
+    Register(username, email, password, passwordValidation, "client");
   };
   return (
     <ScrollView style={styles.scrollView}>
