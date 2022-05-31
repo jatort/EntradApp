@@ -1,8 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 import { Logout } from '../store/actions';
+import Colors from '../constants/Colors';
+import EventList from '../shared/EventList';
 
 export default function LoggedEventsScreen({ route, navigation }) {
 
@@ -10,24 +12,16 @@ export default function LoggedEventsScreen({ route, navigation }) {
   const submit = () => {
     dispatch(Logout())
   }
+
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <Text>Listado de eventos para usuarios iniciados</Text>
-      </View>
+    <View style={styles.root}>
+      <EventList title={"Eventos"}/>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  header: {
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    marginHorizontal: 4,
   },
 })

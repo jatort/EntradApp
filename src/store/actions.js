@@ -5,7 +5,6 @@ export const Init = () => {
   return async (dispatch) => {
     let token = await AsyncStorage.getItem("token");
     if (token !== null) {
-      console.log("token fetched");
       dispatch({
         type: "LOGIN",
         payload: token,
@@ -62,3 +61,4 @@ export const Logout = () => {
     });
   };
 };
+

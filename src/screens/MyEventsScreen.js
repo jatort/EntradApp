@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux';
 import { Logout } from '../store/actions';
+import Colors from '../constants/Colors';
+import EventList from '../shared/EventList';
 
 export default function MyEventsScreen({ route, navigation }) {
 
@@ -11,23 +13,14 @@ export default function MyEventsScreen({ route, navigation }) {
     dispatch(Logout())
   }
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <Text>Listado de mis eventos</Text>
-      </View>
+    <View style={styles.root}>
+      <EventList title={"Mis Eventos"}/>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  header: {
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    marginHorizontal: 4,
   },
 })

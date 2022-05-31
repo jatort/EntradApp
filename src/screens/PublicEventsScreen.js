@@ -1,33 +1,28 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Button } from 'react-native-paper'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, ScrollView, Button } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { Logout } from '../store/actions';
+import Colors from '../constants/Colors';
+import EventList from '../shared/EventList';
+import { getAllEvents } from '../lib/event';
+import { Event } from '../types/event';
 
 export default function PublicEventsScreen({ route, navigation }) {
-
   const dispatch = useDispatch();
   const submit = () => {
     dispatch(Logout())
   }
+
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.container}>
-        <Text>Listado de eventos públicos</Text>
-      </View>
+    <View style={styles.root}>
+      <EventList title={"Eventos públicos"} />
     </View>
+
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  header: {
-    borderBottomRightRadius: 16,
-    borderBottomLeftRadius: 16,
-    marginHorizontal: 4,
   },
 })
