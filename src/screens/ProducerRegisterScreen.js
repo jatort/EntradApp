@@ -4,20 +4,30 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import Colors from "../constants/Colors";
 
 import { Button, Surface, TextInput, Text } from "react-native-paper";
-
+import { registerAnimation } from "react-native-animatable";
+import { Register } from "../lib/register";
 
 export default function UserRegisterScreen({ navigation }) {
-  const [producerName, setProducerName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  /* const [producerName, setProducerName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(""); */
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
+  // const [contactEmail, setContactEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
-  const [description, setDescription] = useState("");
+  // const [description, setDescription] = useState("");
 
   const submit = () => {
-    
+    const registerSuccess = Register(
+      username,
+      email,
+      password,
+      passwordValidation,
+      "prod"
+    );
+    if (registerSuccess) {
+      navigation.navigate("AuthStack");
+    }
   };
   return (
     <ScrollView style={styles.scrollView}>
@@ -25,18 +35,18 @@ export default function UserRegisterScreen({ navigation }) {
         <Text style={styles.title}>Crear Cuenta</Text>
         <Surface style={styles.box}>
           <View>
-            <TextInput
+            {/* <TextInput
               label="Nombre"
               mode="outlined"
               value={producerName}
               onChangeText={(text) => setProducerName(text)}
-            />
-            <TextInput
+            /> */}
+            {/* <TextInput
               label="Telefono de Contacto"
               mode="outlined"
               value={phoneNumber}
               onChangeText={(text) => setPhoneNumber(text)}
-            />
+            /> */}
             <TextInput
               label="Email"
               mode="outlined"
@@ -49,12 +59,12 @@ export default function UserRegisterScreen({ navigation }) {
               value={username}
               onChangeText={(text) => setUsername(text)}
             />
-            <TextInput
+            {/* <TextInput
               label="Email de Contacto"
               mode="outlined"
               value={contactEmail}
               onChangeText={(text) => setContactEmail(text)}
-            />
+            /> */}
             <TextInput
               label="Contraseña"
               mode="outlined"
@@ -67,12 +77,12 @@ export default function UserRegisterScreen({ navigation }) {
               value={passwordValidation}
               onChangeText={(text) => setPasswordValidation(text)}
             />
-            <TextInput
+            {/* <TextInput
               label="Descripción"
               mode="outlined"
               value={description}
               onChangeText={(text) => setDescription(text)}
-            />
+            /> */}
           </View>
           <Button
             mode="contained"

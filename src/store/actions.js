@@ -1,39 +1,42 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
+import axios from "axios";
 
 export const Init = () => {
-  return async dispatch => {
-    let token = await AsyncStorage.getItem('token');
+  return async (dispatch) => {
+    let token = await AsyncStorage.getItem("token");
     if (token !== null) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: token,
-      })
+      });
     }
-  }
-}
+  };
+};
 
 export const Login = (email, password) => {
-  return async dispatch => {
+  return async (dispatch) => {
     let token = null;
     try {
-      const response = await axios.post('https://entradapp-backend.herokuapp.com/api/v1/login', {
-        email,
-        password,
-      })
+      const response = await axios.post(
+        "https://entradapp-backend.herokuapp.com/api/v1/login",
+        {
+          email,
+          password,
+        }
+      );
       const {
         data: { token },
-      } = response
-      await AsyncStorage.setItem('token', token);
+      } = response;
+      await AsyncStorage.setItem("token", token);
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: token,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-}
+  };
+};
 // export const Login = (username, password) => {
 //   return async dispatch => {
 //     let token = null;
@@ -51,10 +54,11 @@ export const Login = (email, password) => {
 // }
 
 export const Logout = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     await AsyncStorage.clear();
     dispatch({
-      type: 'LOGOUT'
-    })
-  }
-}
+      type: "LOGOUT",
+    });
+  };
+};
+
