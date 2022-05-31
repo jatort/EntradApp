@@ -18,37 +18,30 @@ const EventList: React.FC<Props> = (props: Props) => {
   const [ events, setEvents ] = useState([]);
 
   useEffect(() => {
-    console.log("Rendering events");
-    /*console.log(props.events);
-    if (props.events.length > 0) setIsLoading(false);*/
-    getAllEvents().then(events => {setEvents(events);});
+    getAllEvents()
+      .then(events => {console.log(events); setEvents(events);})
+      .catch(err => console.log(err));
   }, []);
 
-  const renderItem = ({event}) => {
+  const renderItem = ({item}) => {
     return (
-      <EventCard event={event} />
+      <EventCard event={item} />
+    );
+  };
+
+  const getHeader = () => {
+    return(
+      <Text style={styles.title}>{props.title}</Text>
     );
   };
 
   return (
-   <View style={styles.root}>
-    <ScrollView>
-    { events.length == 0 ? 
-      <View style={styles.root}> 
-      <Text style={styles.title}>{props.title} Loading</Text>
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      <EventCard />
-      </View>:
-      <View style={styles.root}>
-          <Text style={styles.title}>{props.title} Loaded</Text>
-        <FlatList data={events} renderItem={renderItem} keyExtractor={event => event._id}/>
-      </View>
+    <View style={styles.root}>
+    { events.length != 0 && 
+      <FlatList data={events} renderItem={renderItem} keyExtractor={event => event._id} ListHeaderComponent={getHeader}/>
     }
-    </ScrollView>
-  </View> 
+    </View>
+  
   );
 };
 

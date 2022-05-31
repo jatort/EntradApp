@@ -6,26 +6,27 @@ import {
   StyleSheet, TouchableOpacity, View, Text, Image,
 } from 'react-native'
 import { Event } from '../types/event';
+import { getDatefromDate, getHourFromDate } from '../lib/date';
 
-/*interface Props {
-  event: Event;
-}*/
-
-const EventCard = (props: Props) => {
+const EventCard = (props) => {
     
   const [event, setEvent] = useState({});
+  const [hour, setHour] = useState('');
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     setEvent(props.event);
-    console.log(props.event);
-  }, []);
-
+    setDate(getDatefromDate(props.event.date));
+    setHour(getHourFromDate(props.event.date));
+  }, [props.event]);
+ 
   const imgUrl = event
     ? require('../../assets/logo-clean.png')
     : require('../../assets/logo-clean.png')
-
+ 
   return (
     <TouchableOpacity>
+      { event != undefined &&
       <View style={[styles.container, styles.shadowProp]}>
         <View>
           <Image style={styles.eventIcon} source={imgUrl} />
@@ -34,12 +35,12 @@ const EventCard = (props: Props) => {
         <View style={styles.eventDetails}>
           <View style={styles.eventDate}>
             <View style={styles.dateContainer}>
-              <Text style={styles.date}>{event.date}</Text>
+              <Text style={styles.date}>{date}</Text>
               <DotIcon name="dot-single" size={20} color="#414abe" />
             </View>
 
             <View style={styles.hourContainer}>
-              <Text style={styles.hour}>{event.hour}</Text>
+              <Text style={styles.hour}>{hour}</Text>
             </View>
           </View>
 
@@ -48,31 +49,23 @@ const EventCard = (props: Props) => {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <LocationIcon name="location-on" size={20} color="#D3D3D3" />
-            <Text style={styles.location}>{event.location}</Text>
+            <Text style={styles.location}>{event.address}</Text>
             <DotIcon name="dot-single" size={20} color="#D3D3D3" />
             <Text style={styles.location}>{event.city}</Text>
           </View>
         </View>
       </View>
+      }
     </TouchableOpacity>
   )
 }
-
-/*EventCard.propTypes = {
-  title: PropTypes.string,
-  date: PropTypes.string,
-  hour: PropTypes.string,
-  location: PropTypes.string,
-  city: PropTypes.string,
-  image: PropTypes.string,
-}*/
 
 EventCard.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string,
     date: PropTypes.string,
     hour: PropTypes.string,
-    location: PropTypes.string,
+    address: PropTypes.string,
     city: PropTypes.string,
     image: PropTypes.string,
   }),
@@ -83,7 +76,7 @@ EventCard.defaultProps = {
   title: 'Evento de música electrónica',
   date: 'Sab, May 1',
   hour: '6:00 PM',
-  location: 'Movistar Arena',
+  address: 'Movistar Arena D',
   city: 'Santiago',
   image: '../../assets/images/logo-clean.png'
   },
