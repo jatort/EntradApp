@@ -19,7 +19,7 @@ const EventList: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     getAllEvents()
-      .then(events => {console.log(events); setEvents(events);})
+      .then(events => setEvents(events))
       .catch(err => console.log(err));
   }, []);
 
