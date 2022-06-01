@@ -8,8 +8,8 @@ import Colors from "./src/constants/Colors";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { ActivityIndicator } from "react-native-paper";
 
@@ -23,7 +23,6 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 
-
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -31,18 +30,42 @@ const Drawer = createDrawerNavigator();
 function AuthTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Inicio" component={LoginScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Eventos" component={PublicEventsScreen} options={{ headerShown: false }} />
+      <Tab.Screen
+        name="Inicio"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Eventos"
+        component={PublicEventsScreen}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
 function AuthStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="AuthStack" component={AuthTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: true, headerTitle: false }} />
-      <Stack.Screen name="UserRegister" component={UserRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
-      <Stack.Screen name="ProducerRegister" component={ProducerRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="AuthStack"
+        component={AuthTabs}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+      <Stack.Screen
+        name="UserRegister"
+        component={UserRegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+      <Stack.Screen
+        name="ProducerRegister"
+        component={ProducerRegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -50,8 +73,16 @@ function AuthStack() {
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
-      <Tab.Screen name="Explorar Eventos" component={LoggedEventsScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Mis Eventos" component={MyEventsScreen} options={{ headerShown: false }} />
+      <Tab.Screen
+        name="Explorar Eventos"
+        component={LoggedEventsScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Mis Eventos"
+        component={MyEventsScreen}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
@@ -59,8 +90,16 @@ function LoggedTabs() {
 const LoggedDrawer = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen  name="Eventos" component={LoggedTabs} options={{ headerShown: false }} />
-      <Drawer.Screen name="Mi Perfil" component={ProfileScreen} options={{ headerShown: false }} />
+      <Drawer.Screen
+        name="Eventos"
+        component={LoggedTabs}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Mi Perfil"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
     </Drawer.Navigator>
   );
 };
@@ -75,7 +114,6 @@ const MyStack = () => {
 
 const RootNavigation = () => {
   const token = useSelector((state) => state.Reducers.authToken);
-  console.log(token);
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
