@@ -15,7 +15,7 @@ export default function PublicEventsScreen({ route, navigation }) {
 
   return (
     <View style={styles.root}>
-      <EventList title={"Eventos públicos"} />
+      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} title={"Eventos públicos"}/>
     </View>
 
   )

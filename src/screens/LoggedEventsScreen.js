@@ -14,13 +14,7 @@ export default function LoggedEventsScreen({ route, navigation }) {
 
   return (
     <View style={styles.root}>
-      <Button
-        // onPress={() => navigation.navigate("LoggedEventsDetail")}
-        style={{ padding: 10, backgroundColor: "#444444" }}
-      >
-        Hola
-      </Button>
-      <EventList onPress={() => navigation.navigate("LoggedEventsDetail")} navigation={navigation} title={"Eventos"} />
+      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} title={"Eventos"} />
     </View>
   );
 }

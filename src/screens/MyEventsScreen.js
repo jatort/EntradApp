@@ -14,7 +14,7 @@ export default function MyEventsScreen({ route, navigation }) {
   }
   return (
     <View style={styles.root}>
-      <EventList title={"Mis Eventos"}/>
+      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} title={"Mis Eventos"}/>
     </View>
   )
 }
