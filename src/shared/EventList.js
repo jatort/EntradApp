@@ -5,15 +5,15 @@ import Colors from '../constants/Colors';
 import { Event } from '../types/event';
 import { getAllEvents } from '../lib/event';
 
-type Props = {
-  events: Event[];
-  apiUrl: string;
-  title: string;
-};
+// type Props = {
+//   events: Event[];
+//   apiUrl: string;
+//   title: string;
+// };
 
 // Este componente debe hacer fetch de la API para obtener
 // los eventos en distintas url segun la pantalla
-const EventList: React.FC<Props> = (props: Props) => {
+const EventList = (props) => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ events, setEvents ] = useState([]);
 
@@ -25,7 +25,7 @@ const EventList: React.FC<Props> = (props: Props) => {
 
   const renderItem = ({item}) => {
     return (
-      <EventCard event={item} />
+      <EventCard navigation={props.navigation} event={item} />
     );
   };
 

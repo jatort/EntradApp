@@ -21,6 +21,7 @@ import UserRegisterScreen from "./src/screens/UserRegisterScreen";
 import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
+import LoggedEventsDetailScreen from "./src/screens/LoggedEventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 
 
@@ -47,10 +48,19 @@ function AuthStack() {
   );
 }
 
+function LoggedEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="LoggedEvents" component={LoggedEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="LoggedEventsDetail" component={LoggedEventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
-      <Tab.Screen name="Explorar Eventos" component={LoggedEventsScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Explorar Eventos" component={LoggedEventsStack} options={{ headerShown: false }} />
       <Tab.Screen name="Mis Eventos" component={MyEventsScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
