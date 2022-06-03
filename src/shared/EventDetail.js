@@ -3,7 +3,6 @@ import {
   StyleSheet, Text, View, ScrollView, Image
 } from 'react-native'
 import { Button } from 'react-native-paper'
-import Colors from '../constants/Colors'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'

@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import { getUser } from '../lib/user';
 
 import {
   View, Text, Image
@@ -8,18 +9,25 @@ const ProdCard = (props) => {
 
   // Acá debo hacer la consulta por el usuario
 
-  const [event, setEvent] = useState({});
-  const [name, setName] = useState('');
+  const [event, setEvent] = useState({})
+  const [user, setUser] = useState({})
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
 
   useEffect(() => {
     setEvent(props.event);
-    setName(props.event.name)
-    setRole(props.event.role)
-    // setCategory(props.event.category)
+    getUser(props.event.userId)
+      .then((user) => {
+        setUser(user);
+        setUsername(user.username);
+        setRole(user.role);
+        setEmail(user.email);
+      })
+      .catch(err => console.log(err));
   }, [props.event]);
 
-  const imgUrl = event
+  const imgUrl = user
     ? require('../../assets/default-user.png')
     : require('../../assets/default-user.png')
 
@@ -33,10 +41,10 @@ const ProdCard = (props) => {
       </View>
       <View style={{ flexDirection: 'column' }}>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{username}</Text>
         </View>
         <View style={styles.roleContainer}>
-          <Text style={styles.role}>{role}</Text>
+          <Text style={styles.role}>Email: {email}</Text>
         </View>
       </View>
     </View>
