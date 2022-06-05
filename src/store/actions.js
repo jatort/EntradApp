@@ -1,6 +1,10 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
+import { config } from '../config'
+
+const url = () => config.API_URL;
+
 export const Init = () => {
   return async (dispatch) => {
     let token = await AsyncStorage.getItem("token");
@@ -18,7 +22,7 @@ export const Login = (email, password) => {
     let token = null;
     try {
       const response = await axios.post(
-        "https://entradapp-backend.herokuapp.com/api/v1/login",
+        `${url}/login`,
         {
           email,
           password,

@@ -1,5 +1,10 @@
 import ValidateEmail from "../utils/validations/validateMail.js";
 import axios from "axios";
+
+import { config } from '../config'
+
+const url = () => config.API_URL;
+
 export const Register = async (
   username,
   email,
@@ -21,7 +26,7 @@ export const Register = async (
     };
     try {
       const response = await axios.post(
-        "https://entradapp-backend.herokuapp.com/api/v1/user",
+        `${url}/user`,
         body
       );
       if (response.status === 201) {
