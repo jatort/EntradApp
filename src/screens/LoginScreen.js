@@ -26,12 +26,14 @@ export default function LoginScreen({ navigation }) {
       <Surface style={styles.box}>
         <View>
           <TextInput
+            testID="email"
             label="Email"
             mode="outlined"
             value={username}
             onChangeText={(text) => setUsername(text)}
           />
           <TextInput
+            testID='password'
             label="Contraseña"
             mode="outlined"
             value={password}
@@ -39,6 +41,7 @@ export default function LoginScreen({ navigation }) {
           />
         </View>
         <Button
+          testID="loginButton"
           mode="contained"
           color={Colors.blue}
           style={{ marginTop: 20 }}
