@@ -15,13 +15,15 @@ type Props = {
 // los eventos en distintas url segun la pantalla
 export const EventList: React.FC<Props> = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState();
 
   useEffect(() => {
     props
       .loadEvents()
       .then((events) => setEvents(events))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        //los events no se cargan
+      });
   }, []);
 
   const renderItem = ({ item }) => {
@@ -34,7 +36,7 @@ export const EventList: React.FC<Props> = (props: Props) => {
 
   return (
     <View style={styles.root}>
-      {events.length != 0 && (
+      {events && (
         <FlatList
           data={events}
           renderItem={renderItem}

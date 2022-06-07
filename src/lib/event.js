@@ -22,6 +22,6 @@ export const getMyEvents = async () => {
     });
     return response.data.events;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
