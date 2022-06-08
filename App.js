@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { StatusBar, View } from "react-native";
+import { StatusBar, View, Image } from "react-native";
 
 import { store } from "./src/store";
 import { Init } from "./src/store/actions";
@@ -81,7 +81,15 @@ function LoggedTabs() {
       <Tab.Screen
         name="Mis Eventos"
         component={MyEventsScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/calendarx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
