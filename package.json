@@ -13,7 +13,10 @@
     "test-coverage-report": "jest --coverageReporters='text-summary'"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./src/config/setupJest.js"
+    ]
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.8",

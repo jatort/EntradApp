@@ -30,17 +30,32 @@ describe("Events screens", () => {
   const initialState = { output: 10, dispatch: jest.fn() };
   const mockStore = configureStore([thunk]);
   let store;
-
+  store = mockStore(initialState);
+  const { queryAllByText, getByTestId } = render(
+    <Provider store={store}>
+      <LoginScreen />
+    </Provider>
+  );
   it("always render public events", () => {
     //hacer test para evaluar que se rendericen eventos en la tab de eventos.
+    fireEvent.press(getByTestId("publicEvents"));
   });
 
-  it("should render private events", () => {
+  it("should render public & my events", () => {
     //hacer test para evaluar que se rendericen los eventos privados.
-  });
+    const store = mockStore({});
 
-  it("should not render my events", () => {
-    //hacer test para evaluar que no se rendericen los eventos privados
-    //de que el usuario no sea productor.
+    const response = {
+      token: "accessToken",
+      message: "success",
+    };
+    // Config answer to API mock in route /login, status: 200 and body: response
+    mock.onPost(`${url}/login`).reply(200, response);
+
+    // Return the promise
+    store.dispatch(Login("test_client@test.com", "testpassword")).then(() => {
+      fireEvent.press(getByTestId("exploreEvents")).expect();
+      fireEvent.press(getByTestId("myEvents")).expect();
+    });
   });
 });
