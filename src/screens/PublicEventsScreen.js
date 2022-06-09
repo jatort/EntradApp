@@ -8,14 +8,9 @@ import { getAllEvents } from "../lib/event";
 import { Event } from "../types/event";
 
 export default function PublicEventsScreen({ route, navigation }) {
-  const dispatch = useDispatch();
-  const submit = () => {
-    dispatch(Logout());
-  };
-
   return (
     <View style={styles.root}>
-      <EventList title={"Eventos públicos"} loadEvents={getAllEvents} />
+      <EventList title={"Eventos"} loadEvents={getAllEvents} />
     </View>
   );
 }
