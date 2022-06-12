@@ -21,6 +21,7 @@ import UserRegisterScreen from "./src/screens/UserRegisterScreen";
 import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
+import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 
 
@@ -28,11 +29,20 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+function PublicEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="PublicEvents" component={PublicEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function AuthTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Inicio" component={LoginScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Eventos" component={PublicEventsScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Eventos" component={PublicEventsStack} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
@@ -47,11 +57,29 @@ function AuthStack() {
   );
 }
 
+function LoggedEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="LoggedEvents" component={LoggedEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
+function MyEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyEvents" component={MyEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
-      <Tab.Screen name="Explorar Eventos" component={LoggedEventsScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Mis Eventos" component={MyEventsScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="Explorar Eventos" component={LoggedEventsStack} options={{ headerShown: false }} />
+      <Tab.Screen name="Mis Eventos" component={MyEventsStack} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }
