@@ -7,10 +7,10 @@ const url = () => config.API_URL;
 
 export const getAllEvents = async() => {
   try {
-    const response = await axios.get(`${url}/event`);
+    const response = await axios.get(`${url()}/event`);
     return response.data.events;
   } catch (err) {
-    console.log(err);
+    console.log("ERROR " + err);
   }
 };
 
