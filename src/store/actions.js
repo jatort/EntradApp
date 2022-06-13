@@ -22,7 +22,7 @@ export const Login = (email, password) => {
     let token = null;
     try {
       const response = await axios.post(
-        `${url}/login`,
+        `${url()}/login`,
         {
           email,
           password,

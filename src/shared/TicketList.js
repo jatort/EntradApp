@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import EventCard from './EventCard';
 import Colors from '../constants/Colors';
-import { Event } from '../types/event';
-import { getAllEvents } from '../lib/event';
+import { getMyTickets } from '../lib/ticket';
 
 // Este componente debe hacer fetch de la API para obtener
-// los eventos en distintas url segun la pantalla
-const EventList = (props) => {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ events, setEvents ] = useState([]);
+// los tickets en distintas url segun la pantalla
+const TicketList = (props) => {
+  const [ tickets, setTickets ] = useState([]);
 
   useEffect(() => {
-    getAllEvents()
-      .then(events => setEvents(events))
+    getMyTickets()
+      .then(ticks => {
+        if (ticks) setTickets(ticks);
+        console.log(ticks);
+      })
       .catch(err => console.log(err));
   }, []);
 
-  const onPress = (event) => {
-    props.navigation.navigate("EventsDetail", { event });
-  }
+  const onPress = (ticket) => props.navigation.navigate("TicketDetail", { ticket });
+
 
   const renderItem = ({item}) => {
     return (
-      <EventCard navigation={props.navigation} event={item} onPress={() => onPress(item)}/>
+      <EventCard navigation={props.navigation} event={item.event} onPress={() => onPress(item)}/>
     );
   };
 
@@ -35,8 +35,8 @@ const EventList = (props) => {
 
   return (
     <View style={styles.root}>
-    { events.length != 0 && 
-      <FlatList data={events} renderItem={renderItem} keyExtractor={event => event._id} ListHeaderComponent={getHeader}/>
+    { tickets.length != 0 && 
+      <FlatList data={tickets} renderItem={renderItem} keyExtractor={ticket => ticket._id} ListHeaderComponent={getHeader}/>
     }
     </View>
   
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventList;
+export default TicketList;

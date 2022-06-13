@@ -6,6 +6,7 @@ import { Button } from 'react-native-paper'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
+import EventInfo from './EventInfo'
 
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
@@ -29,15 +30,7 @@ const EventDetail = (props) => {
         <View style={styles.imageContainer}>
           <Image style={styles.eventImage} source={imgUrl} />
         </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{name}</Text>
-        </View>
-        <DateCard event={props.event}/>
-        <PlaceCard event={props.event}/>
-        <ProdCard event={props.event}/>
-
-        <Text style={styles.description_title}>Descripción</Text>
-        <Text style={styles.description_body}>{description}</Text>
+        <EventInfo event={event} />
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button

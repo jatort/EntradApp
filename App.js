@@ -23,7 +23,9 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
-
+import MyTicketsScreen from "./src/screens/MyTicketsScreen";
+import TicketDetailScreen from "./src/screens/TicketDetailsScreen";
+import EventDetail from "./src/shared/EventDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,6 +77,15 @@ function MyEventsStack() {
   );
 }
 
+function MyTicketsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyTickets" component={MyTicketsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
@@ -88,6 +99,7 @@ const LoggedDrawer = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen  name="Eventos" component={LoggedTabs} options={{ headerShown: false }} />
+      <Drawer.Screen name="Mis Tickets" component={MyTicketsStack} options={{ headerShown: false }} />
       <Drawer.Screen name="Mi Perfil" component={ProfileScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
