@@ -22,7 +22,7 @@ export const Login = (email, password) => {
     let token = null;
     try {
       const response = await axios.post(
-        `${url}/login`,
+        `${url()}/login`,
         {
           email,
           password,
@@ -41,7 +41,6 @@ export const Login = (email, password) => {
         type: 'LOGIN_FAIL',
         payload: token,
       })
-      // console.log(error)
     }
   }
 }
