@@ -1,18 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper'
-import { useDispatch } from 'react-redux';
-import { Logout } from '../store/actions';
+import { Logout } from '../../store/actions';
 
-export default function ProfileScreen({ route, navigation }) {
-
+export default function ProducerProfileScreen({ route, navigation }) {
+  const email = useSelector((state) => state.Reducers.email);
+  const role = useSelector((state) => state.Reducers.role);
   const dispatch = useDispatch();
   const submit = () => {
     dispatch(Logout())
   }
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
+        <Text>Producer profile screen</Text>
+        <Text>Email: {email}</Text>
+        <Text>Role: {role}</Text>
         <Button mode='outlined'
           onPress={submit}
           style={{ marginTop: 20 }}>
