@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { StatusBar, View } from "react-native";
+import { StatusBar, View, Image } from "react-native";
 
 import { store } from "./src/store";
 import { Init } from "./src/store/actions";
@@ -8,8 +8,8 @@ import Colors from "./src/constants/Colors";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { ActivityIndicator } from "react-native-paper";
 
@@ -23,7 +23,6 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
-
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,18 +40,43 @@ function PublicEventsStack() {
 function AuthTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Inicio" component={LoginScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Eventos" component={PublicEventsStack} options={{ headerShown: false }} />
+      <Tab.Screen
+        name="Inicio"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Eventos"
+        component={PublicEventsScreen}
+        options={{ headerShown: false }}
+        testID="publicEvents"
+      />
     </Tab.Navigator>
   );
 }
 function AuthStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="AuthStack" component={AuthTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: true, headerTitle: false }} />
-      <Stack.Screen name="UserRegister" component={UserRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
-      <Stack.Screen name="ProducerRegister" component={ProducerRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="AuthStack"
+        component={AuthTabs}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+      <Stack.Screen
+        name="UserRegister"
+        component={UserRegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+      <Stack.Screen
+        name="ProducerRegister"
+        component={ProducerRegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -78,8 +102,26 @@ function MyEventsStack() {
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
-      <Tab.Screen name="Explorar Eventos" component={LoggedEventsStack} options={{ headerShown: false }} />
-      <Tab.Screen name="Mis Eventos" component={MyEventsStack} options={{ headerShown: false }} />
+      <Tab.Screen
+        name="Explorar Eventos"
+        component={LoggedEventsScreen}
+        options={{ headerShown: false }}
+        testID="ExploreEvents"
+      />
+      <Tab.Screen
+        name="Mis Eventos"
+        component={MyEventsScreen}
+        testID="myEvents"
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/calendarx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -87,8 +129,16 @@ function LoggedTabs() {
 const LoggedDrawer = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen  name="Eventos" component={LoggedTabs} options={{ headerShown: false }} />
-      <Drawer.Screen name="Mi Perfil" component={ProfileScreen} options={{ headerShown: false }} />
+      <Drawer.Screen
+        name="Eventos"
+        component={LoggedTabs}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Mi Perfil"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
     </Drawer.Navigator>
   );
 };
@@ -103,7 +153,6 @@ const MyStack = () => {
 
 const RootNavigation = () => {
   const token = useSelector((state) => state.Reducers.authToken);
-  console.log(token);
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();

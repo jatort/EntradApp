@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Image, StyleSheet, View } from "react-native";
 
-import { Login } from '../store/actions';
-import Colors from '../constants/Colors';
+import { Login } from "../store/actions";
+import Colors from "../constants/Colors";
 
-import { Button, Surface, TextInput, Text } from 'react-native-paper'
+import { Button, Surface, TextInput, Text } from "react-native-paper";
 
-import loginLogo from '../../assets/logo-clean.png'; 
+import loginLogo from "../../assets/logo-clean.png";
 
 export default function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState('prod@example.com');
-  const [password, setPassword] = useState('prod');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const submit = () => {
-    dispatch(Login(username, password))
-  }
+    dispatch(Login(username, password));
+  };
   return (
     <View style={styles.container}>
       <View style={styles.loginLogoContainer}>
@@ -27,14 +27,14 @@ export default function LoginScreen({ navigation }) {
         <View>
           <TextInput
             testID="email"
-            label="Email"
+            label="example@gmail.com"
             mode="outlined"
             value={username}
             onChangeText={(text) => setUsername(text)}
           />
           <TextInput
-            testID='password'
-            label="Contraseña"
+            testID="password"
+            label="password"
             mode="outlined"
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -45,25 +45,29 @@ export default function LoginScreen({ navigation }) {
           mode="contained"
           color={Colors.blue}
           style={{ marginTop: 20 }}
-          onPress={submit}>
+          onPress={submit}
+        >
           Iniciar Sesión
         </Button>
       </Surface>
       <View style={styles.registerText}>
         <Text>¿No tienes una cuenta?</Text>
-        <Text 
+        <Text
           style={styles.registerTextButton}
-          onPress={() => navigation.navigate('Register')}
-        > Registrarse</Text>
+          onPress={() => navigation.navigate("Register")}
+        >
+          {" "}
+          Registrarse
+        </Text>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     padding: 28,
     backgroundColor: Colors.white,
   },
@@ -75,35 +79,34 @@ const styles = StyleSheet.create({
   },
   loginLogoContainer: {
     flex: 1,
-    alignItems: 'center',
-
+    alignItems: "center",
   },
   loginLogo: {
     width: 200,
     height: 120,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
     paddingHorizontal: 5,
-    textAlign: 'left',
+    textAlign: "left",
     color: Colors.black,
     marginBottom: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   registerText: {
     fontSize: 15,
     paddingTop: 25,
     paddingHorizontal: 5,
-    textAlign: 'center',
+    textAlign: "center",
     color: Colors.black,
     marginBottom: 20,
-    fontWeight: 'normal',
-    flexDirection: 'row',
-    justifyContent: 'center'
+    fontWeight: "normal",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   registerTextButton: {
     color: Colors.purple,
-  }
-})
+  },
+});

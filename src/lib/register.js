@@ -1,7 +1,7 @@
 import ValidateEmail from "../utils/validations/validateMail.js";
 import axios from "axios";
 
-import { config } from '../config'
+import { config } from "../config";
 
 const url = () => config.API_URL;
 
@@ -25,10 +25,7 @@ export const Register = async (
       role: role,
     };
     try {
-      const response = await axios.post(
-        `${url}/user`,
-        body
-      );
+      const response = await axios.post(`${url()}/user`, body);
       if (response.status === 201) {
         alert("Te has registrado exitosamente");
         return true;
