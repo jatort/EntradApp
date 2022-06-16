@@ -15,7 +15,8 @@
   "jest": {
     "preset": "jest-expo",
     "setupFiles": [
-      "./src/config/setupJest.js"
+      "./src/config/setupJest.js",
+      "./src/config/mock.js"
     ]
   },
   "dependencies": {

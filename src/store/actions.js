@@ -39,7 +39,6 @@ export const Login = (email, password) => {
         type: "LOGIN_FAIL",
         payload: token,
       });
-      console.log(error);
       console.log(error.message);
     }
   };

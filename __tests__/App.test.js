@@ -60,7 +60,7 @@ describe("<LoginScreen/>", () => {
     };
 
     // Config answer to API mock in route /login, status: 200 and body: response
-    mock.onPost(`${url}/login`).reply(200, response);
+    mock.onPost(`${url()}/login`).reply(200, response);
 
     // Return the promise
     return store

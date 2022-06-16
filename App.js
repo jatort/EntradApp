@@ -38,8 +38,8 @@ function AuthTabs() {
       <Tab.Screen
         name="Eventos"
         component={PublicEventsScreen}
-        testID="publicEvents"
         options={{ headerShown: false }}
+        testID="publicEvents"
       />
     </Tab.Navigator>
   );
