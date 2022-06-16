@@ -4,6 +4,7 @@ import EventCard from "./EventCard";
 import Colors from "../constants/Colors";
 import { Event } from "../types/event";
 
+
 type Props = {
   events: Event[],
   apiUrl: string,
@@ -26,8 +27,12 @@ export const EventList: React.FC<Props> = (props: Props) => {
       });
   }, []);
 
-  const renderItem = ({ item }) => {
-    return <EventCard event={item} />;
+
+  const renderItem = ({item}) => {
+    return (
+      <EventCard navigation={props.navigation} event={item} />
+    );
+
   };
 
   const getHeader = () => {

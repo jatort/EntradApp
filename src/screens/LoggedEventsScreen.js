@@ -8,13 +8,14 @@ import EventList from "../shared/EventList";
 import { getAllEvents } from "../lib/event";
 
 export default function LoggedEventsScreen({ route, navigation }) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const submit = () => {
-    // dispatch(Logout());
+    dispatch(Logout());
   };
+
   return (
     <View style={styles.root}>
-      <EventList title={"Eventos"} loadEvents={getAllEvents} />
+      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} loadEvents={getAllEvents} title={"Eventos"} />
     </View>
   );
 }

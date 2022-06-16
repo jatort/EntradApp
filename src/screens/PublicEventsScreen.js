@@ -10,7 +10,7 @@ import { Event } from "../types/event";
 export default function PublicEventsScreen({ route, navigation }) {
   return (
     <View style={styles.root}>
-      <EventList title={"Eventos"} loadEvents={getAllEvents} />
+      <EventList onPress={() => navigation.navigate("EventsDetail")} loadEvents={getAllEvents} navigation={navigation} title={"Eventos públicos"}/>
     </View>
   );
 }

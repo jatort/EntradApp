@@ -13,7 +13,7 @@ export default function MyEventsScreen({ route, navigation }) {
   const token = useSelector((state) => state.Reducers.authToken);
   return (
     <View style={styles.root}>
-      {token && <EventList title={"Eventos"} loadEvents={getMyEvents} />}
+      { token && <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} loadEvents={getMyEvents} title={"Mis Eventos"}/>}
     </View>
   );
 }

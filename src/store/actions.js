@@ -26,6 +26,7 @@ export const Login = (email, password) => {
     };
     try {
       const response = await axios.post(`${url()}/login`, body);
+
       const {
         data: { token },
       } = response;

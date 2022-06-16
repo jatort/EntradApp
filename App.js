@@ -21,11 +21,21 @@ import UserRegisterScreen from "./src/screens/UserRegisterScreen";
 import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
+import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+function PublicEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="PublicEvents" component={PublicEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
 
 function AuthTabs() {
   return (
@@ -67,6 +77,24 @@ function AuthStack() {
         component={ProducerRegisterScreen}
         options={{ headerShown: true, headerTitle: false }}
       />
+    </Stack.Navigator>
+  );
+}
+
+function LoggedEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="LoggedEvents" component={LoggedEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
+function MyEventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyEvents" component={MyEventsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
     </Stack.Navigator>
   );
 }
