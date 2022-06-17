@@ -23,6 +23,8 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
+import MyOrdersScreen from "./src/screens/MyOrdersScreen";
+import OrderDetail from "./src/shared/OrderDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,6 +101,16 @@ function MyEventsStack() {
   );
 }
 
+function MyOrdersStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyOrders" component={MyOrdersScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="OrderDetail" component={OrderDetail} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function LoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
@@ -133,6 +145,11 @@ const LoggedDrawer = () => {
         name="Eventos"
         component={LoggedTabs}
         options={{ headerShown: false }}
+      />
+      <Drawer.Screen 
+        name="Historial de compra" 
+        component={MyOrdersStack} 
+        options={{ headerShown: false }} 
       />
       <Drawer.Screen
         name="Mi Perfil"
