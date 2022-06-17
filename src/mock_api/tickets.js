@@ -5,7 +5,7 @@ export const response = {
       {
         "_id": "6296d18ea6abe237eede8bf7",
         purchaseDate: "2022-07-21T00:00:00.000Z",
-        code: "t97a6abe237e",
+        code: "t97a6abe237e1",
         price: 50000,
         amount: 2,
         event: {

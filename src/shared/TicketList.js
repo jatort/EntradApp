@@ -13,7 +13,6 @@ const TicketList = (props) => {
     getMyTickets()
       .then(ticks => {
         if (ticks) setTickets(ticks);
-        console.log(ticks);
       })
       .catch(err => console.log(err));
   }, []);
