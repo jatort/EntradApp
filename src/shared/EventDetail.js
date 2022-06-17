@@ -7,6 +7,7 @@ import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
 import EventInfo from './EventInfo'
+import { buyTickets } from '../lib/ticket'
 
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
@@ -37,7 +38,7 @@ const EventDetail = (props) => {
             mode="contained"
             style={styles.buyButton}
             color='#414abe'
-            onPress={() => {}}
+            onPress={buyTickets}
           >
             Comprar Entrada
         </Button>

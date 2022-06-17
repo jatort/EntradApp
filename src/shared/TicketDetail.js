@@ -30,7 +30,7 @@ const TicketDetail = (props) => {
       <Portal>
         <Modal contentContainerStyle={styles.codeContainer} visible={isVisible} onDismiss={toggleTicket}>
           <Text>El código de tu ticket es:</Text>
-          <Text style={styles.code}>{ticket.code}</Text>
+          <Text style={styles.code}>{ticket._id}</Text>
         </Modal>
       </Portal>
       <ScrollView>
