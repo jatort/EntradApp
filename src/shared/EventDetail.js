@@ -7,7 +7,9 @@ import { Button } from 'react-native-paper'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
+import { config } from '../config';
 
+const url = () => config.API_URL;
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
   const [name, setName] = useState('');
@@ -27,7 +29,7 @@ const EventDetail = (props) => {
 
   if(visible) return (
     <WebView
-    source={{ uri: 'http://localhost:3000/api/v1/event/apiFlow/create_order', method: 'POST' }}
+    source={{ uri: url() + '/event/apiFlow/create_order', method: 'POST' }}
     originWhitelist={['*']}
     startInLoadingState={true}
   />
