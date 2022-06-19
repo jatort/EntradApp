@@ -8,6 +8,7 @@ import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
 import { config } from '../config';
+import { useSelector } from "react-redux";
 
 const url = () => config.API_URL;
 const EventDetail = (props) => {
@@ -15,7 +16,9 @@ const EventDetail = (props) => {
   const [name, setName] = useState('');
   const [visible, setVisible] = useState(false);
   const [description, setDescription] = useState('');
-
+  const [redirect, setRedirect] = useState('');
+  const token = useSelector((state) => state.Reducers.authToken);
+  
   const imgUrl = event
     ? require('../../assets/event-default.png')
     : require('../../assets/event-default.png')
@@ -26,10 +29,24 @@ const EventDetail = (props) => {
     setDescription(props.event.description);
   }, [props.event]);
 
+  const handleButtonClick = () => {
+    fetch(`${url()}/order`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        eventId: props.event._id,
+        nTickets: 1
+      }),
+    }).then(response => response.json()).then(resp => {setRedirect(resp.redirect); setVisible(true);})
+    .catch(err => alert(`Error: ${err}`));
+  }
 
   if(visible) return (
     <WebView
-    source={{ uri: url() + '/event/apiFlow/create_order', method: 'POST' }}
+    source={{ uri: redirect, method: 'POST'}}
     originWhitelist={['*']}
     startInLoadingState={true}
   />
@@ -44,9 +61,9 @@ const EventDetail = (props) => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{name}</Text>
         </View>
-        <DateCard event={props.event}/>
-        <PlaceCard event={props.event}/>
-        <ProdCard event={props.event}/>
+        <DateCard event={event}/>
+        <PlaceCard event={event}/>
+        <ProdCard event={event}/>
 
         <Text style={styles.description_title}>Descripción</Text>
         <Text style={styles.description_body}>{description}</Text>
@@ -57,10 +74,10 @@ const EventDetail = (props) => {
             style={styles.buyButton}
             color='#414abe'
             onPress={() => {
-              setVisible(true)
+              handleButtonClick()
             }}
           >
-            Comprar Entrada
+            Comprar Entrada ${event.price}
         </Button>
       </View>
     </View>
