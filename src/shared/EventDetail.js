@@ -2,14 +2,18 @@ import React, { useState, useEffect} from 'react'
 import {
   StyleSheet, Text, View, ScrollView, Image
 } from 'react-native'
+import { WebView } from 'react-native-webview';
 import { Button } from 'react-native-paper'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
+import { config } from '../config';
 
+const url = () => config.API_URL;
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
   const [name, setName] = useState('');
+  const [visible, setVisible] = useState(false);
   const [description, setDescription] = useState('');
 
   const imgUrl = event
@@ -22,6 +26,14 @@ const EventDetail = (props) => {
     setDescription(props.event.description);
   }, [props.event]);
 
+
+  if(visible) return (
+    <WebView
+    source={{ uri: url() + '/event/apiFlow/create_order', method: 'POST' }}
+    originWhitelist={['*']}
+    startInLoadingState={true}
+  />
+  )
 
   return (
     <View style={styles.root}>
@@ -44,7 +56,9 @@ const EventDetail = (props) => {
             mode="contained"
             style={styles.buyButton}
             color='#414abe'
-            onPress={() => {}}
+            onPress={() => {
+              setVisible(true)
+            }}
           >
             Comprar Entrada
         </Button>
