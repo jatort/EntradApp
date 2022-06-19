@@ -17,6 +17,7 @@ const OrderDetail = (props) => {
     : require('../../assets/event-default.png')
 
   useEffect(() => {
+    
     setEvent(props.event);
     setName(props.event.name);
     setDescription(props.event.description);

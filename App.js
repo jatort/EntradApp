@@ -49,7 +49,7 @@ function AuthTabs() {
       />
       <Tab.Screen
         name="Eventos"
-        component={PublicEventsScreen}
+        component={PublicEventsStack}
         options={{ headerShown: false }}
         testID="publicEvents"
       />
@@ -116,13 +116,13 @@ function LoggedTabs() {
     <Tab.Navigator initialRouteName="Explorar Eventos">
       <Tab.Screen
         name="Explorar Eventos"
-        component={LoggedEventsScreen}
+        component={LoggedEventsStack}
         options={{ headerShown: false }}
         testID="ExploreEvents"
       />
       <Tab.Screen
         name="Mis Eventos"
-        component={MyEventsScreen}
+        component={MyEventsStack}
         testID="myEvents"
         options={{
           headerShown: false,
