@@ -104,7 +104,7 @@ function LoggedTabs() {
     <Tab.Navigator initialRouteName="Explorar Eventos">
       <Tab.Screen
         name="Explorar Eventos"
-        component={LoggedEventsScreen}
+        component={LoggedEventsStack}
         options={{ headerShown: false }}
         testID="ExploreEvents"
       />
