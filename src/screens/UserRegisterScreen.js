@@ -14,8 +14,8 @@ export default function UserRegisterScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
 
-  const submit = () => {
-    const registerSuccess = Register(
+  const submit = async () => {
+    const registerSuccess = await Register(
       username,
       email,
       password,
@@ -49,12 +49,17 @@ export default function UserRegisterScreen({ navigation }) {
               mode="outlined"
               value={email}
               onChangeText={(text) => setEmail(text)}
+              type="email-address"
+              autoComplete="email"
+              autoCapitalize='none'
+
             />
             <TextInput
               label="Usuario"
               mode="outlined"
               value={username}
               onChangeText={(text) => setUsername(text)}
+              autoCapitalize='none'
             />
             {/* <TextInput
               label="Fecha de Nacimiento"
@@ -67,12 +72,15 @@ export default function UserRegisterScreen({ navigation }) {
               mode="outlined"
               value={password}
               onChangeText={(text) => setPassword(text)}
+              secureTextEntry
+              autoCapitalize='none'
             />
             <TextInput
               label="Confirmar Contraseña"
               mode="outlined"
               value={passwordValidation}
               onChangeText={(text) => setPasswordValidation(text)}
+              secureTextEntry
             />
           </View>
           <Button

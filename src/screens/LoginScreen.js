@@ -5,9 +5,12 @@ import { Image, StyleSheet, View } from "react-native";
 import { Login } from "../store/actions";
 import Colors from "../constants/Colors";
 
+import { showMessage } from "react-native-flash-message";
+
 import { Button, Surface, TextInput, Text } from "react-native-paper";
 
 import loginLogo from "../../assets/logo-clean.png";
+import ValidateEmail from "../utils/validations/validateMail";
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -15,6 +18,13 @@ export default function LoginScreen({ navigation }) {
 
   const dispatch = useDispatch();
   const submit = () => {
+    const validEmail = ValidateEmail(username)
+    if(!validEmail) {
+      return showMessage({
+      message: "Correo inválido",
+      type: "danger",
+      });
+    }
     dispatch(Login(username, password));
   };
   return (
@@ -31,6 +41,9 @@ export default function LoginScreen({ navigation }) {
             mode="outlined"
             value={username}
             onChangeText={(text) => setUsername(text)}
+            type="email-address"
+            autoComplete="email"
+            autoCapitalize='none'
           />
           <TextInput
             testID="password"
@@ -38,6 +51,8 @@ export default function LoginScreen({ navigation }) {
             mode="outlined"
             value={password}
             onChangeText={(text) => setPassword(text)}
+            secureTextEntry
+            autoCapitalize='none'
           />
         </View>
         <Button
