@@ -16,14 +16,16 @@ import { ActivityIndicator } from "react-native-paper";
 import Feeds from "./src/screens/Feeds";
 import LoginScreen from "./src/screens/LoginScreen";
 import ClientProfileScreen from "./src/screens/client/ClientProfileScreen";
+import ProducerHomeScreen from "./src/screens/producer/ProducerHomeScreen";
 import ProducerProfileScreen from "./src/screens/producer/ProducerProfileScreen";
+import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import UserRegisterScreen from "./src/screens/UserRegisterScreen";
-import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
+import EventRegisterScreen from "./src/screens/producer/EventRegisterScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,7 +102,16 @@ function MyEventsStack() {
   );
 }
 
-function LoggedTabs() {
+function ProducerHomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="ProducerHome" component={ProducerHomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventRegister" component={EventRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
+function ClientLoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
       <Tab.Screen
@@ -132,7 +143,7 @@ const ClientLoggedDrawer = () => {
     <Drawer.Navigator>
       <Drawer.Screen
         name="Eventos"
-        component={LoggedTabs}
+        component={ClientLoggedTabs}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
@@ -148,8 +159,8 @@ const ProducerLoggedDrawer = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
-        name="Eventos"
-        component={LoggedTabs}
+        name="Inicio"
+        component={ProducerHomeStack}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
