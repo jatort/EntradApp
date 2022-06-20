@@ -94,6 +94,7 @@ const EventDetail = (props) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Selecciona la cantidad de entradas</Text>
+            <Text style={styles.modalText}>Tickets Disponibles: {event.nTickets - event.currentTickets}</Text>
             <View style={styles.inputTicketsContainer}>
               <Button
                 style={[styles.button, styles.buttonColor]}
