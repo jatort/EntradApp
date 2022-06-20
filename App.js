@@ -27,7 +27,12 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
+
 import EventRegisterScreen from "./src/screens/producer/EventRegisterScreen";
+
+import MyOrdersScreen from "./src/screens/MyOrdersScreen";
+import OrderDetail from "./src/shared/OrderDetail";
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,7 +57,7 @@ function AuthTabs() {
       />
       <Tab.Screen
         name="Eventos"
-        component={PublicEventsScreen}
+        component={PublicEventsStack}
         options={{ headerShown: false }}
         testID="publicEvents"
       />
@@ -104,11 +109,22 @@ function MyEventsStack() {
   );
 }
 
+
 function ProducerHomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="ProducerHome" component={ProducerHomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="EventRegister" component={EventRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
+    </Stack.Navigator>
+  );
+}
+
+function MyOrdersStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyOrders" component={MyOrdersScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="OrderDetail" component={OrderDetail} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
     </Stack.Navigator>
   );
 }
@@ -124,7 +140,7 @@ function ClientLoggedTabs() {
       />
       <Tab.Screen
         name="Mis Eventos"
-        component={MyEventsScreen}
+        component={MyEventsStack}
         testID="myEvents"
         options={{
           headerShown: false,
@@ -147,6 +163,11 @@ const ClientLoggedDrawer = () => {
         name="Eventos"
         component={ClientLoggedTabs}
         options={{ headerShown: false }}
+      />
+      <Drawer.Screen 
+        name="Historial de compra" 
+        component={MyOrdersStack} 
+        options={{ headerShown: false }} 
       />
       <Drawer.Screen
         name="Mi Perfil"
