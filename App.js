@@ -17,10 +17,12 @@ import { ActivityIndicator } from "react-native-paper";
 
 import Feeds from "./src/screens/Feeds";
 import LoginScreen from "./src/screens/LoginScreen";
-import ProfileScreen from "./src/screens/ProfileScreen";
+import ClientProfileScreen from "./src/screens/client/ClientProfileScreen";
+import ProducerHomeScreen from "./src/screens/producer/ProducerHomeScreen";
+import ProducerProfileScreen from "./src/screens/producer/ProducerProfileScreen";
+import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import UserRegisterScreen from "./src/screens/UserRegisterScreen";
-import ProducerRegisterScreen from "./src/screens/ProducerRegisterScreen";
 import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
@@ -28,8 +30,12 @@ import MyEventsScreen from "./src/screens/MyEventsScreen";
 import MyTicketsScreen from "./src/screens/MyTicketsScreen";
 import TicketDetailScreen from "./src/screens/TicketDetailScreen";
 import EventDetail from "./src/shared/EventDetail";
+
+import EventRegisterScreen from "./src/screens/producer/EventRegisterScreen";
+
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 import OrderDetail from "./src/shared/OrderDetail";
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -107,11 +113,20 @@ function MyEventsStack() {
 }
 
 
+
 function MyTicketsStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="MyTickets" component={MyTicketsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+  </Stack.Navigator>
+  );
+}
+function ProducerHomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="ProducerHome" component={ProducerHomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="EventRegister" component={EventRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
     </Stack.Navigator>
   );
 }
@@ -126,7 +141,34 @@ function MyOrdersStack() {
   );
 }
 
-function LoggedTabs() {
+function ProducerLoggedTabs() {
+  return (
+    <Tab.Navigator initialRouteName="Explorar Eventos">
+      <Tab.Screen
+        name="Menú"
+        component={ProducerHomeStack}
+        options={{ headerShown: false }}
+        testID="ProducerHome"
+      />
+      <Tab.Screen
+        name="Mis Eventos"
+        component={MyEventsStack}
+        testID="myEvents"
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/calendarx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function ClientLoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
       <Tab.Screen
@@ -153,12 +195,12 @@ function LoggedTabs() {
   );
 }
 
-const LoggedDrawer = () => {
+const ClientLoggedDrawer = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen
         name="Eventos"
-        component={LoggedTabs}
+        component={ClientLoggedTabs}
         options={{ headerShown: false }}
       />
       <Drawer.Screen 
@@ -173,7 +215,24 @@ const LoggedDrawer = () => {
       />
       <Drawer.Screen
         name="Mi Perfil"
-        component={ProfileScreen}
+        component={ClientProfileScreen}
+        options={{ headerShown: false }}
+      />
+    </Drawer.Navigator>
+  );
+};
+
+const ProducerLoggedDrawer = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name="Inicio"
+        component={ProducerLoggedTabs}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Mi Perfil"
+        component={ProducerProfileScreen}
         options={{ headerShown: false }}
       />
     </Drawer.Navigator>
@@ -181,9 +240,17 @@ const LoggedDrawer = () => {
 };
 
 const MyStack = () => {
+  const role = useSelector((state) => state.Reducers.role);
+  if (role == "client") {
+    return (
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="loggedDrawer" component={ClientLoggedDrawer} />
+      </Stack.Navigator>
+    );
+  }
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="loggedDrawer" component={LoggedDrawer} />
+      <Stack.Screen name="loggedDrawer" component={ProducerLoggedDrawer} />
     </Stack.Navigator>
   );
 };
@@ -213,7 +280,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {token === null ? <AuthStack /> : <MyStack />}
+      {token === null ? <AuthStack /> : <MyStack/>}
     </NavigationContainer>
   );
 };
