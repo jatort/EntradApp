@@ -1,13 +1,14 @@
-import { AsyncStorage } from 'react-native';
-import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { showMessage } from "react-native-flash-message";
 
-import { config } from '../config'
+import { config } from "../config";
 
 const url = () => config.API_URL;
 
 export const Init = () => {
   return async (dispatch) => {
-    let token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("token");
     if (token !== null) {
       dispatch({
         type: "LOGIN",
@@ -19,7 +20,11 @@ export const Init = () => {
 
 export const Login = (email, password) => {
   return async (dispatch) => {
-    let token = null;
+    let token;
+    const body = {
+      email: email,
+      password: password,
+    };
     try {
       const response = await axios.post(
         `${url()}/login`,
@@ -38,13 +43,17 @@ export const Login = (email, password) => {
       });
     } catch (error) {
       dispatch({
-        type: 'LOGIN_FAIL',
+        type: "LOGIN_FAIL",
         payload: token,
-      })
-      // console.log(error)
+      });
+      showMessage({
+        message: "Error al iniciar sesión",
+        type: "danger",
+      });
+      console.log(error.message);
     }
-  }
-}
+  };
+};
 
 export const Logout = () => {
   return async (dispatch) => {
@@ -54,4 +63,3 @@ export const Logout = () => {
     });
   };
 };
-

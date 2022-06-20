@@ -7,17 +7,26 @@ import {
 } from 'react-native'
 import { Event } from '../types/event';
 import { getDatefromDate, getHourFromDate } from '../lib/date';
+import EventCardFooter from './EventCardFooter';
+import OrderCardFooter from './OrderCardFooter';
 
 const EventCard = (props) => {
     
   const [event, setEvent] = useState({});
   const [hour, setHour] = useState('');
   const [date, setDate] = useState('');
+  
+  const [isOrder, setIsOrder] = useState(false);
+  const [order, setOrder] = useState({});
 
   useEffect(() => {
     setEvent(props.event);
     setDate(getDatefromDate(props.event.date));
     setHour(getHourFromDate(props.event.date));
+    if (props.isOrder) {
+      setIsOrder(true);
+      setOrder(props.order);
+    }
   }, [props.event]);
  
   const imgUrl = event
@@ -47,12 +56,7 @@ const EventCard = (props) => {
           <View>
             <Text style={styles.title}>{event.name}</Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
-            <LocationIcon name="location-on" size={20} color="#D3D3D3" />
-            <Text style={styles.location}>{event.address}</Text>
-            <DotIcon name="dot-single" size={20} color="#D3D3D3" />
-            <Text style={styles.location}>{event.city}</Text>
-          </View>
+          { isOrder ? <OrderCardFooter price={order.amount} nTickets={order.nTickets}/> : <EventCardFooter address={event.address} city={event.city}/>}
         </View>
       </View>
       }
@@ -133,9 +137,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     color: 'black',
-  },
-  location: {
-    color: '#D3D3D3',
   },
 });
 

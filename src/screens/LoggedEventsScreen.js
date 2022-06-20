@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Logout } from "../store/actions";
 import Colors from "../constants/Colors";
 import EventList from "../shared/EventList";
+import { getAllEvents } from "../lib/event";
 
 export default function LoggedEventsScreen({ route, navigation }) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function LoggedEventsScreen({ route, navigation }) {
 
   return (
     <View style={styles.root}>
-      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} title={"Eventos"} />
+      <EventList onPress={() => navigation.navigate("EventsDetail")} navigation={navigation} loadEvents={getAllEvents} title={"Eventos"} />
     </View>
   );
 }

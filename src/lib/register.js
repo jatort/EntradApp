@@ -1,7 +1,8 @@
 import ValidateEmail from "../utils/validations/validateMail.js";
 import axios from "axios";
+import { showMessage } from "react-native-flash-message";
 
-import { config } from '../config'
+import { config } from "../config";
 
 const url = () => config.API_URL;
 
@@ -13,9 +14,15 @@ export const Register = async (
   role
 ) => {
   if (password !== passwordValidation) {
-    alert("Las contraseñas no coinciden");
+    showMessage({
+      message: "Las contraseñas no coinciden",
+      type: "danger",
+    });
   } else if (!ValidateEmail(email)) {
-    alert("El email no es válido");
+    showMessage({
+      message: "El email no es válido",
+      type: "danger",
+    });
   } else {
     // los inputs son correctos
     const body = {
@@ -25,22 +32,28 @@ export const Register = async (
       role: role,
     };
     try {
-      const response = await axios.post(
-        `${url}/user`,
-        body
-      );
+      const response = await axios.post(`${url()}/user`, body);
       if (response.status === 201) {
-        alert("Te has registrado exitosamente");
+        showMessage({
+          message: "Te has registrado exitosamente",
+          type: "success",
+        });
         return true;
       }
     } catch (error) {
       if (error.message === "User already exists") {
-        alert("El usuario ya existe");
+        showMessage({
+          message: "El usuario ya existe",
+          type: "danger",
+        });
       } else {
         console.log(error.message);
-        alert("Error al registrarte");
+        showMessage({
+          message: "Error al registrarte",
+          type: "danger",
+        });
       }
-      return false;
     }
   }
+  return false;
 };

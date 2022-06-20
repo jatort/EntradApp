@@ -1,31 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Text, FlatList } from "react-native";
-import EventCard from "./EventCard";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import Colors from "../constants/Colors";
 import { Event } from "../types/event";
+import { getMyOrders } from "../lib/order";
+import EventCard from "./EventCard";
+
+/*type Props = {
+  events: Event[],
+  apiUrl: string,
+  title: string,
+  loadEvents: () => any,
+};*/
 
 // Este componente debe hacer fetch de la API para obtener
-// los eventos en distintas url segun la pantalla
-export const EventList = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [events, setEvents] = useState();
+// las ordenes de compra
+export const OrderList = (props) => {
+  const [ orders, setOrders] = useState([]);
 
   useEffect(() => {
-    props
-      .loadEvents()
-      .then((events) => setEvents(events))
+      getMyOrders()
+      .then((orders) => setOrders(orders))
       .catch((err) => {
-        //los events no se cargan
+        //las ordenes no se cargan
       });
   }, []);
 
-  const onPress = (event) => {
-    props.navigation.navigate("EventsDetail", { event });
-  }
 
   const renderItem = ({item}) => {
     return (
-      <EventCard navigation={props.navigation} event={item} onPress={() => onPress(item)}/>
+      <EventCard navigation={props.navigation} event={item.event} order={item} isOrder={true} />
     );
 
   };
@@ -36,11 +39,11 @@ export const EventList = (props) => {
 
   return (
     <View style={styles.root}>
-      {events && (
+      {orders && (
         <FlatList
-          data={events}
+          data={orders}
           renderItem={renderItem}
-          keyExtractor={(event) => event._id}
+          keyExtractor={(order) => order._id}
           ListHeaderComponent={getHeader}
         />
       )}
@@ -64,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventList;
+export default OrderList;

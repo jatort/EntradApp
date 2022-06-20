@@ -17,7 +17,7 @@ const ProdCard = (props) => {
 
   useEffect(() => {
     setEvent(props.event);
-    getUser(props.event.userId)
+    getUser(props.event.user)
       .then((user) => {
         setUser(user);
         setUsername(user.username);
