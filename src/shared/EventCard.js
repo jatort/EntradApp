@@ -34,7 +34,7 @@ const EventCard = (props) => {
     : require('../../assets/logo-clean.png')
  
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPress={() => props.navigation.navigate("EventsDetail", {event: event})}>
       { event != undefined &&
       <View style={[styles.container, styles.shadowProp]}>
         <View>
