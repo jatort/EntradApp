@@ -11,6 +11,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+import FlashMessage from "react-native-flash-message";
+
 import { ActivityIndicator } from "react-native-paper";
 
 import Feeds from "./src/screens/Feeds";
@@ -116,7 +118,7 @@ function ClientLoggedTabs() {
     <Tab.Navigator initialRouteName="Explorar Eventos">
       <Tab.Screen
         name="Explorar Eventos"
-        component={LoggedEventsScreen}
+        component={LoggedEventsStack}
         options={{ headerShown: false }}
         testID="ExploreEvents"
       />
@@ -222,6 +224,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <RootNavigation />
+      <FlashMessage position="top" /> 
     </Provider>
   );
 };

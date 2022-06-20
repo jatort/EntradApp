@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { showMessage } from "react-native-flash-message";
 
 import { config } from "../config";
 
@@ -51,6 +52,10 @@ export const Login = (email, password) => {
         payload: token,
         email: email,
         role: role,
+      });
+      showMessage({
+        message: "Error al iniciar sesión",
+        type: "danger",
       });
       console.log(error.message);
     }
