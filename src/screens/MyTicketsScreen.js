@@ -5,7 +5,7 @@ import TicketList from '../shared/TicketList';
 export default function MyTicketsScreen({ navigation }) {
   return (
     <View style={styles.root}>
-      <TicketList onPress={() => navigation.navigate("TicketDetails")} navigation={navigation} title={"Tickets vigentes"}/>
+      <TicketList navigation={navigation} title={"Tickets vigentes"}/>
     </View>
   )
 }

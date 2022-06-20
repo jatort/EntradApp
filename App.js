@@ -26,7 +26,7 @@ import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
 import MyTicketsScreen from "./src/screens/MyTicketsScreen";
-import TicketDetailScreen from "./src/screens/TicketDetailsScreen";
+import TicketDetailScreen from "./src/screens/TicketDetailScreen";
 import EventDetail from "./src/shared/EventDetail";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 import OrderDetail from "./src/shared/OrderDetail";
