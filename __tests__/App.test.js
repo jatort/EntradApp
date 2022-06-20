@@ -55,7 +55,7 @@ describe("<LoginScreen/>", () => {
     const store = mockStore({});
 
     const response = {
-      token: "accessToken",
+      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2RAZXhhbXBsZS5jb20iLCJyb2xlIjoicHJvZCIsImlhdCI6MTY1NTY5NTIwMCwiZXhwIjoxNjU2MzAwMDAwfQ.jDlxZQsxHY5sngBhHvwejN_nFlVDrEbhGztkbv2CRjw",
       message: "success",
     };
 

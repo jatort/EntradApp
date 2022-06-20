@@ -1,5 +1,7 @@
 const initialState = {
     authToken: null,
+    email: null,
+    role: null,
   }
   
   export default (state = initialState, action) => {
@@ -8,6 +10,8 @@ const initialState = {
         return {
           ...state, //copy all previous states
           authToken: action.payload,
+          email: action.email,
+          role: action.role,
         }
       case 'LOGOUT':
         return {
