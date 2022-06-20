@@ -71,8 +71,9 @@ export const Logout = () => {
 
 export const DeleteAccount = () => {
   return async (dispatch) => {
+    let token;
     try {
-        const token = await AsyncStorage.getItem("token");
+        token = await AsyncStorage.getItem("token");
         await axios.delete(`${url()}/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,7 +88,6 @@ export const DeleteAccount = () => {
           type: "LOGOUT",
         }); 
     } catch(error) {
-        console.log(error)
         dispatch({
           type: "LOGOUT_FAIL",
           payload: token,
