@@ -129,6 +129,33 @@ function MyOrdersStack() {
   );
 }
 
+function ProducerLoggedTabs() {
+  return (
+    <Tab.Navigator initialRouteName="Explorar Eventos">
+      <Tab.Screen
+        name="Menú"
+        component={ProducerHomeStack}
+        options={{ headerShown: false }}
+        testID="ProducerHome"
+      />
+      <Tab.Screen
+        name="Mis Eventos"
+        component={MyEventsStack}
+        testID="myEvents"
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/calendarx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 function ClientLoggedTabs() {
   return (
     <Tab.Navigator initialRouteName="Explorar Eventos">
@@ -183,7 +210,7 @@ const ProducerLoggedDrawer = () => {
     <Drawer.Navigator>
       <Drawer.Screen
         name="Inicio"
-        component={ProducerHomeStack}
+        component={ProducerLoggedTabs}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
