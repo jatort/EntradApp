@@ -49,8 +49,6 @@ export const Login = (email, password) => {
       dispatch({
         type: "LOGIN_FAIL",
         payload: token,
-        email: email,
-        role: role,
       });
       console.log(error.message);
     }
