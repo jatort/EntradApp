@@ -95,7 +95,6 @@ export const DeleteAccount = () => {
           message: "Error al eliminar cuenta",
           type: "danger",
         });
-      }
     };
   };
 };
