@@ -12,7 +12,7 @@ export const getAllEvents = async () => {
     const response = await axios.get(`${url()}/event`);
     return response.data.events;
   } catch (err) {
-    console.log("ERROR " + err);
+    console.log("ERROR: " + err.message);
   }
 };
 
