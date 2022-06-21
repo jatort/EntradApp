@@ -11,6 +11,7 @@ import EventInfo from './EventInfo'
 import { buyTickets } from '../lib/ticket'
 import { config } from '../config';
 import { useSelector } from "react-redux";
+import Colors from '../constants/Colors'
 
 const url = () => config.API_URL;
 const EventDetail = (props) => {
@@ -138,6 +139,9 @@ const EventDetail = (props) => {
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image style={styles.eventImage} source={imgUrl} />
+          <View style={styles.ticketsSoldContainer}>
+            <Text style={{color: Colors.purple}}>+{event.currentTickets} personas han comprado entrada</Text>
+          </View>
         </View>
         <EventInfo event={event} />
       </ScrollView>
@@ -243,7 +247,24 @@ const styles = StyleSheet.create({
   inputTicketsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  }
+  },
+  ticketsSoldContainer: {
+    width: '70%',
+    height: '12%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: -10,
+    right: 50,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    shadowColor: '#171717',
+    shadowOffset: {width: -10, height: 8},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5,
+  },
 });
 
 export default EventDetail
