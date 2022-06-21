@@ -15,25 +15,30 @@ import EventCard from "./EventCard";
 // Este componente debe hacer fetch de la API para obtener
 // las ordenes de compra
 export const OrderList = (props) => {
-  const [ orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-      getMyOrders()
+    getMyOrders()
       .then((orders) => setOrders(orders))
       .catch((err) => {
         //las ordenes no se cargan
       });
-  }, []);
+  }, [orders]);
 
   const onPress = (event) => {
     props.navigation.navigate("EventsDetail", { event });
-  }
+  };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
-      <EventCard onPress={() => onPress(item.event)} navigation={props.navigation} event={item.event} order={item} isOrder={true} />
+      <EventCard
+        onPress={() => onPress(item.event)}
+        navigation={props.navigation}
+        event={item.event}
+        order={item}
+        isOrder={true}
+      />
     );
-
   };
 
   const getHeader = () => {
