@@ -27,6 +27,9 @@ import PublicEventsScreen from "./src/screens/PublicEventsScreen";
 import LoggedEventsScreen from "./src/screens/LoggedEventsScreen";
 import EventsDetailScreen from "./src/screens/EventsDetailScreen";
 import MyEventsScreen from "./src/screens/MyEventsScreen";
+import MyTicketsScreen from "./src/screens/MyTicketsScreen";
+import TicketDetailScreen from "./src/screens/TicketDetailScreen";
+import EventDetail from "./src/shared/EventDetail";
 
 import EventRegisterScreen from "./src/screens/producer/EventRegisterScreen";
 
@@ -110,6 +113,15 @@ function MyEventsStack() {
 }
 
 
+
+function MyTicketsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="MyTickets" component={MyTicketsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+  </Stack.Navigator>
+  );
+}
 function ProducerHomeStack() {
   return (
     <Stack.Navigator>
@@ -190,6 +202,11 @@ const ClientLoggedDrawer = () => {
         name="Eventos"
         component={ClientLoggedTabs}
         options={{ headerShown: false }}
+      />
+      <Drawer.Screen 
+        name="Mis Tickets" 
+        component={MyTicketsStack} 
+        options={{ headerShown: false }} 
       />
       <Drawer.Screen 
         name="Historial de compra" 

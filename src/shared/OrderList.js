@@ -25,10 +25,13 @@ export const OrderList = (props) => {
       });
   }, []);
 
+  const onPress = (event) => {
+    props.navigation.navigate("EventsDetail", { event });
+  }
 
   const renderItem = ({item}) => {
     return (
-      <EventCard navigation={props.navigation} event={item.event} order={item} isOrder={true} />
+      <EventCard onPress={() => onPress(item.event)} navigation={props.navigation} event={item.event} order={item} isOrder={true} />
     );
 
   };

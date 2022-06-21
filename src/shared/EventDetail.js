@@ -7,6 +7,8 @@ import { Button } from 'react-native-paper'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
+import EventInfo from './EventInfo'
+import { buyTickets } from '../lib/ticket'
 import { config } from '../config';
 import { useSelector } from "react-redux";
 
@@ -58,15 +60,7 @@ const EventDetail = (props) => {
         <View style={styles.imageContainer}>
           <Image style={styles.eventImage} source={imgUrl} />
         </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{name}</Text>
-        </View>
-        <DateCard event={event}/>
-        <PlaceCard event={event}/>
-        <ProdCard event={event}/>
-
-        <Text style={styles.description_title}>Descripción</Text>
-        <Text style={styles.description_body}>{description}</Text>
+        <EventInfo event={event} />
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button

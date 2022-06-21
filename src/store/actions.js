@@ -32,7 +32,6 @@ export const Login = (email, password) => {
     };
     try {
       const response = await axios.post(`${url()}/login`, body);
-
       const {
         data: { token },
       } = response;
@@ -72,30 +71,30 @@ export const Logout = () => {
 export const DeleteAccount = () => {
   return async (dispatch) => {
     try {
-        const token = await AsyncStorage.getItem("token");
-        await axios.delete(`${url()}/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        await AsyncStorage.clear();
-        showMessage({
-          message: "Cuenta eliminada satisfactoriamente",
-          type: "success",
-        });
-        dispatch({
-          type: "LOGOUT",
-        }); 
-    } catch(error) {
-        console.log(error)
-        dispatch({
-          type: "LOGOUT_FAIL",
-          payload: token,
-        });
-        showMessage({
-          message: "Error al eliminar cuenta",
-          type: "danger",
-        });
-      }
-      };
+      const token = await AsyncStorage.getItem("token");
+      await axios.delete(`${url()}/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      await AsyncStorage.clear();
+      showMessage({
+        message: "Cuenta eliminada satisfactoriamente",
+        type: "success",
+      });
+      dispatch({
+        type: "LOGOUT",
+      });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: "LOGOUT_FAIL",
+        payload: token,
+      });
+      showMessage({
+        message: "Error al eliminar cuenta",
+        type: "danger",
+      });
+    }
   };
+};
