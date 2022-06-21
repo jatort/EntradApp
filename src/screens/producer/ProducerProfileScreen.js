@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper'
-import { Logout } from '../../store/actions';
+import { DeleteAccount, Logout } from '../../store/actions';
 
 export default function ProducerProfileScreen({ route, navigation }) {
   const email = useSelector((state) => state.Reducers.email);
@@ -11,6 +11,10 @@ export default function ProducerProfileScreen({ route, navigation }) {
   const dispatch = useDispatch();
   const submit = () => {
     dispatch(Logout())
+  }
+
+  const submitDelete = () => {
+    dispatch(DeleteAccount())
   }
 
   return (
@@ -23,6 +27,10 @@ export default function ProducerProfileScreen({ route, navigation }) {
           onPress={submit}
           style={{ marginTop: 20 }}>
           Cerrar Sesión</Button>
+        <Button mode='outlined'
+          onPress={submitDelete}
+          style={{ marginTop: 40 }}>
+          Eliminar Cuenta</Button>
       </View>
     </View>
   )
