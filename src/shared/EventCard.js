@@ -34,7 +34,7 @@ const EventCard = (props) => {
     : require('../../assets/logo-clean.png')
  
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate("EventsDetail", {event: event})}>
+    <TouchableOpacity onPress={props.onPress}>
       { event != undefined &&
       <View style={[styles.container, styles.shadowProp]}>
         <View>
@@ -73,6 +73,7 @@ EventCard.propTypes = {
     city: PropTypes.string,
     image: PropTypes.string,
   }),
+  onPress: PropTypes.func,
 }
 
 EventCard.defaultProps = {
@@ -84,6 +85,7 @@ EventCard.defaultProps = {
   city: 'Santiago',
   image: '../../assets/images/logo-clean.png'
   },
+  onPress: () => console.log("Pressing EventCard")
 }
 
 const styles = StyleSheet.create({

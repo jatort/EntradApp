@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import EventCard from "./EventCard";
 import Colors from "../constants/Colors";
-import { Event } from "../types/event";
+import { getMyTickets } from "../lib/ticket";
 
 // Este componente debe hacer fetch de la API para obtener
-// los eventos en distintas url segun la pantalla
-export const EventList = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [events, setEvents] = useState();
+// los tickets en distintas url segun la pantalla
+const TicketList = (props) => {
+  const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    props
-      .loadEvents()
-      .then((events) => setEvents(events))
-      .catch((err) => {
-        //los events no se cargan
-      });
-  }, []);
+    getMyTickets()
+      .then((ticks) => {
+        if (ticks) setTickets(ticks);
+      })
+      .catch((err) => console.log(err));
+  }, [tickets]);
 
-  const onPress = (event) => {
-    props.navigation.navigate("EventsDetail", { event });
-  }
+  const onPress = (ticket) =>
+    props.navigation.navigate("TicketDetail", { ticket });
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
-      <EventCard navigation={props.navigation} event={item} onPress={() => onPress(item)}/>
+      <EventCard
+        navigation={props.navigation}
+        event={item.event}
+        onPress={() => onPress(item)}
+      />
     );
-
   };
 
   const getHeader = () => {
@@ -36,11 +36,11 @@ export const EventList = (props) => {
 
   return (
     <View style={styles.root}>
-      {events && (
+      {tickets.length != 0 && (
         <FlatList
-          data={events}
+          data={tickets}
           renderItem={renderItem}
-          keyExtractor={(event) => event._id}
+          keyExtractor={(ticket) => ticket._id}
           ListHeaderComponent={getHeader}
         />
       )}
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventList;
+export default TicketList;

@@ -1,12 +1,14 @@
 import React, { useState, useEffect} from 'react'
 import {
-  StyleSheet, Text, View, ScrollView, Image
+  StyleSheet, Text, View, ScrollView, Image, Modal, Alert, TextInput
 } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { Button } from 'react-native-paper'
 import DateCard from './EventDateCard'
 import PlaceCard from './EventPlaceCard'
 import ProdCard from './EventProdCard'
+import EventInfo from './EventInfo'
+import { buyTickets } from '../lib/ticket'
 import { config } from '../config';
 import { useSelector } from "react-redux";
 
@@ -18,6 +20,30 @@ const EventDetail = (props) => {
   const [description, setDescription] = useState('');
   const [redirect, setRedirect] = useState('');
   const token = useSelector((state) => state.Reducers.authToken);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [counter, setCounter] = useState(1);
+
+  let incrementCounter = () => setCounter(parseInt(counter) + 1);
+  let decrementCounter = () => setCounter(parseInt(counter) - 1);
+  let changeInput = (number) => {
+    if (number < 0){
+      setCounter(1);
+    } else if (number >= event.nTickets - event.currentTickets){
+      setCounter(event.nTickets - event.currentTickets);
+    } else {
+      setCounter(number);
+    }
+  }
+
+  // El input no puede ser menor a 1.
+  if(counter <= 1) {
+    decrementCounter = () => setCounter(1);
+  }
+  // El input no puede ser mayor a la cantidad de tickets disponibles.
+  if(counter >= event.nTickets - event.currentTickets) {
+    incrementCounter = () => setCounter(event.nTickets - event.currentTickets);
+  }
   
   const imgUrl = event
     ? require('../../assets/event-default.png')
@@ -30,18 +56,22 @@ const EventDetail = (props) => {
   }, [props.event]);
 
   const handleButtonClick = () => {
-    fetch(`${url()}/order`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        eventId: props.event._id,
-        nTickets: 1
-      }),
-    }).then(response => response.json()).then(resp => {setRedirect(resp.redirect); setVisible(true);})
-    .catch(err => alert(`Error: ${err}`));
+    if (counter >= 1 && counter <= event.nTickets - event.currentTickets){
+      fetch(`${url()}/order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          eventId: event._id,
+          nTickets: counter
+        }),
+      }).then(response => response.json()).then(resp => {setRedirect(resp.redirect); setVisible(true);})
+      .catch(err => alert(`Error: ${err}`));
+    } else {
+      Alert.alert("Cantidad no válida, intenta denuevo");
+    }
   }
 
   if(visible) return (
@@ -54,28 +84,69 @@ const EventDetail = (props) => {
 
   return (
     <View style={styles.root}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("No completaste tu compra");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Selecciona la cantidad de entradas</Text>
+            <Text style={styles.modalText}>Tickets Disponibles: {event.nTickets - event.currentTickets}</Text>
+            <View style={styles.inputTicketsContainer}>
+              <Button
+                style={[styles.button, styles.buttonColor]}
+                color='white'
+                onPress={() => {
+                  decrementCounter()
+                }}
+              >
+                -
+              </Button>
+              <TextInput
+                value={`${counter}`}
+                onChangeText={(number) => changeInput(number)}
+                keyboardType='numeric'
+              />
+              <Button
+                style={[styles.button, styles.buttonColor]}
+                color='white'
+                onPress={() => {
+                  incrementCounter()
+                }}
+              >
+                +
+              </Button>
+            </View>
+            <Button
+              mode="contained"
+              style={styles.buyButton}
+              color='#414abe'
+              onPress={() => {
+                handleButtonClick()
+              }}
+            >
+              Comprar ${event.price * counter}
+            </Button>
+          </View>
+        </View>
+      </Modal>
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image style={styles.eventImage} source={imgUrl} />
         </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{name}</Text>
-        </View>
-        <DateCard event={event}/>
-        <PlaceCard event={event}/>
-        <ProdCard event={event}/>
-
-        <Text style={styles.description_title}>Descripción</Text>
-        <Text style={styles.description_body}>{description}</Text>
+        <EventInfo event={event} />
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button
             mode="contained"
             style={styles.buyButton}
             color='#414abe'
-            onPress={() => {
-              handleButtonClick()
-            }}
+            onPress={() => setModalVisible(true)}
           >
             Comprar Entrada ${event.price}
         </Button>
@@ -133,7 +204,46 @@ const styles = StyleSheet.create({
   buyButton: {
     width: '70%',
     borderRadius: 18,
+    opacity: 1,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 100,
+    padding: 5,
+    margin: 10,
+    elevation: 2
+  },
+  buttonColor: {
+    backgroundColor: "#414abe",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  inputTicketsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });
 
 export default EventDetail

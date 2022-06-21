@@ -4,16 +4,19 @@ import { config } from "../config";
 
 const url = () => config.API_URL;
 
-export const getMyOrders = async () => {
+export const getMyTickets = async () => {
   try {
     const token = await AsyncStorage.getItem("token");
-    const response = await axios.get(`${url()}/order`, {
+    const response = await axios.get(`${url()}/ticket`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.orders;
+    return getValidTickets(response.data.tickets);
   } catch (err) {
-    console.log("ERROR: " + err.message);
+    console.log(err.message);
   }
 };
+
+const getValidTickets = (tickets) =>
+  tickets.filter((ticket) => ticket.event.date > new Date().toISOString());
