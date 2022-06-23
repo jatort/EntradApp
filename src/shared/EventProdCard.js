@@ -14,14 +14,18 @@ const ProdCard = (props) => {
 
   useEffect(() => {
     setEvent(props.event);
-    getUser(props.event.user)
-      .then((user) => {
-        setUser(user);
-        setUsername(user.username);
-        setRole(user.role);
-        setEmail(user.email);
-      })
-      .catch((err) => console.log(err.message));
+    if (props.event.user) {
+      getUser(props.event.user)
+        .then((user) => {
+          if (user) {
+            setUser(user);
+            setUsername(user.username);
+            setRole(user.role);
+            setEmail(user.email);
+          }
+        })
+        .catch((err) => console.log(err.message));
+    }
   }, [props.event]);
 
   const imgUrl = user
