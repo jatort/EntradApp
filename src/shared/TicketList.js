@@ -15,7 +15,7 @@ const TicketList = (props) => {
         if (ticks) setTickets(ticks);
       })
       .catch((err) => console.log(err));
-  }, [tickets]);
+  }, []);
 
   const onPress = (ticket) =>
     props.navigation.navigate("TicketDetail", { ticket });

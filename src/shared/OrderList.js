@@ -23,7 +23,7 @@ export const OrderList = (props) => {
       .catch((err) => {
         //las ordenes no se cargan
       });
-  }, [orders]);
+  }, []);
 
   const onPress = (event) => {
     props.navigation.navigate("EventsDetail", { event });
