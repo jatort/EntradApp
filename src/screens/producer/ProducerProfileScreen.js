@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native-paper'
 import { DeleteAccount, Logout } from '../../store/actions';
 
 export default function ProducerProfileScreen({ route, navigation }) {
   const email = useSelector((state) => state.Reducers.email);
-  const role = useSelector((state) => state.Reducers.role);
   const dispatch = useDispatch();
   const submit = () => {
     dispatch(Logout())
@@ -17,20 +16,27 @@ export default function ProducerProfileScreen({ route, navigation }) {
     dispatch(DeleteAccount())
   }
 
+  const imgUrl = require('../../../assets/logo-clean.png');
+
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
-        <Text>Producer profile screen</Text>
-        <Text>Email: {email}</Text>
-        <Text>Role: {role}</Text>
-        <Button mode='outlined'
-          onPress={submit}
-          style={{ marginTop: 20 }}>
-          Cerrar Sesión</Button>
-        <Button mode='outlined'
-          onPress={submitDelete}
-          style={{ marginTop: 40 }}>
-          Eliminar Cuenta</Button>
+        <View style={styles.iconView}>
+          <Image style={styles.icon} source={imgUrl} />
+          <Text style={styles.producerTitle}>Productora</Text>
+          <Text style={styles.producerName}>{email}</Text>
+        </View>
+        <View style={styles.buttonsView}>
+          <Button mode='outlined'
+            onPress={submit}
+            style={{ marginTop: 20 }}>
+            Cerrar Sesión</Button>
+          <Button mode='outlined'
+            onPress={submitDelete}
+            style={{ marginTop: 40 }}>
+            Eliminar Cuenta</Button>
+        </View>
       </View>
     </View>
   )
@@ -47,4 +53,27 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 16,
     marginHorizontal: 4,
   },
+  iconView: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    width: 150,
+    height: 300,
+  },
+  producerTitle: {
+    fontSize: 40,
+    marginHorizontal: 5,
+  },
+  producerName: {
+    fontSize: 25,
+    marginHorizontal: 5,
+  },
+  buttonsView: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  }
 })
