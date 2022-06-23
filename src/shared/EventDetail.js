@@ -56,7 +56,7 @@ const EventDetail = (props) => {
     setDescription(props.event.description);
   }, [props.event]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (counter >= 1 && counter <= event.nTickets - event.currentTickets){
       fetch(`${url()}/order`, {
         method: 'POST',
@@ -75,18 +75,16 @@ const EventDetail = (props) => {
     }
   }
 
-  if(visible) return (
-    <WebView
-    source={{ uri: redirect, method: 'POST'}}
-    originWhitelist={['*']}
-    startInLoadingState={true}
-  />
-  )
-
   const role = useSelector((state) => state.Reducers.role);
 
-  if (role == "client") {
     return (
+      <>
+      { visible ? 
+        <WebView
+          source={{ uri: redirect, method: 'POST'}}
+          originWhitelist={['*']}
+          startInLoadingState={true}
+        /> : 
       <View style={styles.root}>
         <Modal
           animationType="slide"
@@ -148,84 +146,22 @@ const EventDetail = (props) => {
           </View>
           <EventInfo event={event} />
         </ScrollView>
-        <View style={styles.buttonContainer}>
-          <Button
-              mode="contained"
-              style={styles.buyButton}
-              color='#414abe'
-              onPress={() => setModalVisible(true)}
-            >
-              Comprar Entrada ${event.price}
-          </Button>
-        </View>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.root}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("No completaste tu compra");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Selecciona la cantidad de entradas</Text>
-            <Text style={styles.modalText}>Tickets Disponibles: {event.nTickets - event.currentTickets}</Text>
-            <View style={styles.inputTicketsContainer}>
-              <Button
-                style={[styles.button, styles.buttonColor]}
-                color='white'
-                onPress={() => {
-                  decrementCounter()
-                }}
-              >
-                -
-              </Button>
-              <TextInput
-                value={`${counter}`}
-                onChangeText={(number) => changeInput(number)}
-                keyboardType='numeric'
-              />
-              <Button
-                style={[styles.button, styles.buttonColor]}
-                color='white'
-                onPress={() => {
-                  incrementCounter()
-                }}
-              >
-                +
-              </Button>
-            </View>
+        {role == "client" && 
+          <View style={styles.buttonContainer}>
             <Button
-              mode="contained"
-              style={styles.buyButton}
-              color='#414abe'
-              onPress={() => {
-                handleButtonClick()
-              }}
-            >
-              Comprar ${event.price * counter}
+                mode="contained"
+                style={styles.buyButton}
+                color='#414abe'
+                onPress={() => setModalVisible(true)}
+              >
+                Comprar Entrada ${event.price}
             </Button>
           </View>
-        </View>
-      </Modal>
-      <ScrollView>
-        <View style={styles.imageContainer}>
-          <Image style={styles.eventImage} source={imgUrl} />
-          <View style={styles.ticketsSoldContainer}>
-            <Text style={{color: Colors.purple}}>+{event.currentTickets} personas han comprado entrada</Text>
-          </View>
-        </View>
-        <EventInfo event={event} />
-      </ScrollView>
-    </View>
-  );
+        }
+      </View>
+      }
+      </>
+    );
 }
 
 const styles = StyleSheet.create({
