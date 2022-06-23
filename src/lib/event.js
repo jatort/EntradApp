@@ -19,7 +19,7 @@ export const getAllEvents = async () => {
 export const getMyEvents = async () => {
   try {
     const token = await AsyncStorage.getItem("token");
-    const response = await axios.get(`${url()}/user/myevents`, {
+    const response = await axios.get(`${url()}/prod/myevents`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

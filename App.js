@@ -36,7 +36,6 @@ import EventRegisterScreen from "./src/screens/producer/EventRegisterScreen";
 import MyOrdersScreen from "./src/screens/MyOrdersScreen";
 import OrderDetail from "./src/shared/OrderDetail";
 
-
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -44,8 +43,16 @@ const Drawer = createDrawerNavigator();
 function PublicEventsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PublicEvents" component={PublicEventsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="PublicEvents"
+        component={PublicEventsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EventsDetail"
+        component={EventsDetailScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -56,12 +63,28 @@ function AuthTabs() {
       <Tab.Screen
         name="Inicio"
         component={LoginScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/profilex2.png")}
+              style={{ width: 24, height: 24 }}
+            />
+          ),
+        }}
       />
       <Tab.Screen
         name="Eventos"
         component={PublicEventsStack}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/compassx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
         testID="publicEvents"
       />
     </Tab.Navigator>
@@ -97,8 +120,16 @@ function AuthStack() {
 function LoggedEventsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="LoggedEvents" component={LoggedEventsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="LoggedEvents"
+        component={LoggedEventsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EventsDetail"
+        component={EventsDetailScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -106,27 +137,49 @@ function LoggedEventsStack() {
 function MyEventsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MyEvents" component={MyEventsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="MyEvents"
+        component={MyEventsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EventsDetail"
+        component={EventsDetailScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
 
-
-
 function MyTicketsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MyTickets" component={MyTicketsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{ headerShown: true, headerTitle: false }} />
-  </Stack.Navigator>
+      <Stack.Screen
+        name="MyTickets"
+        component={MyTicketsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TicketDetail"
+        component={TicketDetailScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+    </Stack.Navigator>
   );
 }
 function ProducerHomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ProducerHome" component={ProducerHomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EventRegister" component={EventRegisterScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="ProducerHome"
+        component={ProducerHomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EventRegister"
+        component={EventRegisterScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -134,9 +187,21 @@ function ProducerHomeStack() {
 function MyOrdersStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MyOrders" component={MyOrdersScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="OrderDetail" component={OrderDetail} options={{ headerShown: true, headerTitle: false }} />
-      <Stack.Screen name="EventsDetail" component={EventsDetailScreen} options={{ headerShown: true, headerTitle: false }} />
+      <Stack.Screen
+        name="MyOrders"
+        component={MyOrdersScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderDetail"
+        component={OrderDetail}
+        options={{ headerShown: true, headerTitle: false }}
+      />
+      <Stack.Screen
+        name="EventsDetail"
+        component={EventsDetailScreen}
+        options={{ headerShown: true, headerTitle: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -147,7 +212,15 @@ function ProducerLoggedTabs() {
       <Tab.Screen
         name="Menú"
         component={ProducerHomeStack}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/compassx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
         testID="ProducerHome"
       />
       <Tab.Screen
@@ -174,7 +247,15 @@ function ClientLoggedTabs() {
       <Tab.Screen
         name="Explorar Eventos"
         component={LoggedEventsStack}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require("./assets/compassx2.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
         testID="ExploreEvents"
       />
       <Tab.Screen
@@ -201,22 +282,54 @@ const ClientLoggedDrawer = () => {
       <Drawer.Screen
         name="Eventos"
         component={ClientLoggedTabs}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/eventDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
-      <Drawer.Screen 
-        name="Mis Tickets" 
-        component={MyTicketsStack} 
-        options={{ headerShown: false }} 
+      <Drawer.Screen
+        name="Mis Tickets"
+        component={MyTicketsStack}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/ticketDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
-      <Drawer.Screen 
-        name="Historial de compra" 
-        component={MyOrdersStack} 
-        options={{ headerShown: false }} 
+      <Drawer.Screen
+        name="Historial de compra"
+        component={MyOrdersStack}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/orderDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
       <Drawer.Screen
         name="Mi Perfil"
         component={ClientProfileScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/profileDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );
@@ -228,12 +341,28 @@ const ProducerLoggedDrawer = () => {
       <Drawer.Screen
         name="Inicio"
         component={ProducerLoggedTabs}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/homeDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
       <Drawer.Screen
         name="Mi Perfil"
         component={ProducerProfileScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          drawerIcon: () => (
+            <Image
+              source={require("./assets/profileDrawer.png")}
+              style={{ width: 20, height: 20 }}
+            />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );
@@ -280,7 +409,7 @@ const RootNavigation = () => {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {token === null ? <AuthStack /> : <MyStack/>}
+      {token === null ? <AuthStack /> : <MyStack />}
     </NavigationContainer>
   );
 };
@@ -289,7 +418,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <RootNavigation />
-      <FlashMessage position="top" /> 
+      <FlashMessage position="top" />
     </Provider>
   );
 };
