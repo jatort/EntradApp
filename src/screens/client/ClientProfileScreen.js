@@ -4,8 +4,10 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteAccount, Logout } from '../../store/actions';
+import { getProfile } from "../../lib/profile";
 
 export default function ClientProfileScreen({ route, navigation }) {
+  const [username, setUsername] = useState("");
   const email = useSelector((state) => state.Reducers.email);
   const dispatch = useDispatch();
   const submit = () => {
@@ -15,6 +17,14 @@ export default function ClientProfileScreen({ route, navigation }) {
     dispatch(DeleteAccount())
   }
 
+  useEffect(() => {
+    getProfile()
+      .then((user) => {
+        if (user) setUsername(user.username);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const imgUrl = require('../../../assets/logo-clean.png');
 
   return (
@@ -22,7 +32,7 @@ export default function ClientProfileScreen({ route, navigation }) {
       <View style={styles.container}>
         <View style={styles.iconView}>
           <Image style={styles.icon} source={imgUrl} />
-          <Text style={styles.clientTitle}>Usuario</Text>
+          <Text style={styles.clientTitle}>Usuario: {username}</Text>
           <Text style={styles.clientName}>{email}</Text>
         </View>
         <View style={styles.buttonsView}>
@@ -64,6 +74,7 @@ const styles = StyleSheet.create({
   clientTitle: {
     fontSize: 40,
     marginHorizontal: 5,
+    textAlign: "center",
   },
   clientName: {
     fontSize: 25,

@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from 'react-native-paper'
 import { DeleteAccount, Logout } from '../../store/actions';
+import { getProfile } from "../../lib/profile";
 
 export default function ProducerProfileScreen({ route, navigation }) {
+  const [username, setUsername] = useState("");
   const email = useSelector((state) => state.Reducers.email);
   const dispatch = useDispatch();
   const submit = () => {
@@ -16,15 +18,22 @@ export default function ProducerProfileScreen({ route, navigation }) {
     dispatch(DeleteAccount())
   }
 
-  const imgUrl = require('../../../assets/logo-clean.png');
+  useEffect(() => {
+    getProfile()
+      .then((user) => {
+        if (user) setUsername(user.username);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
+  const imgUrl = require('../../../assets/logo-clean.png');
 
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
         <View style={styles.iconView}>
           <Image style={styles.icon} source={imgUrl} />
-          <Text style={styles.producerTitle}>Productora</Text>
+          <Text style={styles.producerTitle}>Productora: {username}</Text>
           <Text style={styles.producerName}>{email}</Text>
         </View>
         <View style={styles.buttonsView}>
@@ -66,6 +75,7 @@ const styles = StyleSheet.create({
   producerTitle: {
     fontSize: 40,
     marginHorizontal: 5,
+    textAlign: "center",
   },
   producerName: {
     fontSize: 25,
