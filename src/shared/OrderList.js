@@ -22,6 +22,7 @@ export const OrderList = (props) => {
       .then((orders) => setOrders(orders))
       .catch((err) => {
         //las ordenes no se cargan
+        setOrders([]);
       });
   }, []);
 

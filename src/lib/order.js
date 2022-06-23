@@ -15,6 +15,7 @@ export const getMyOrders = async () => {
     return response.data.orders;
   } catch (err) {
     console.log("ERROR: " + err.message);
+    throw err;
   }
 };
 

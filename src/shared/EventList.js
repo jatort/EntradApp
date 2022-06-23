@@ -21,13 +21,16 @@ export const EventList = (props) => {
 
   const onPress = (event) => {
     props.navigation.navigate("EventsDetail", { event });
-  }
+  };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
-      <EventCard navigation={props.navigation} event={item} onPress={() => onPress(item)}/>
+      <EventCard
+        navigation={props.navigation}
+        event={item}
+        onPress={() => onPress(item)}
+      />
     );
-
   };
 
   const getHeader = () => {
