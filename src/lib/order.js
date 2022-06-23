@@ -17,3 +17,11 @@ export const getMyOrders = async () => {
     console.log("ERROR: " + err.message);
   }
 };
+
+export const createOrder = async () => {
+  try {
+
+  } catch (err) {
+    console.log("ERROR: " + err.message);
+  }
+}

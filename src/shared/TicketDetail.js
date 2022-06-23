@@ -6,6 +6,8 @@ import { Button, Modal, Portal, Provider } from 'react-native-paper'
 import EventInfo from './EventInfo'
 import PropTypes from 'prop-types'
 import Colors from '../constants/Colors'
+import QRCode from 'react-native-qrcode-svg'
+import base64Logo from '../constants/logoBase64'
 
 const TicketDetail = (props) => {
   const [ticket, setTicket] = useState({});
@@ -29,15 +31,21 @@ const TicketDetail = (props) => {
     <View style={styles.root}>
       <Portal>
         <Modal contentContainerStyle={styles.codeContainer} visible={isVisible} onDismiss={toggleTicket}>
-          <Text>El código de tu ticket es:</Text>
-          <Text style={styles.code}>{ticket._id}</Text>
+          <Text style={styles.code}>El código de tu ticket es:</Text>
+          <QRCode
+            value={ticket._id}
+            logo={{uri: base64Logo}}
+            logoSize={30}
+            logoBackgroundColor='transparent'
+            size={200}
+          />
         </Modal>
       </Portal>
       <ScrollView>
         <View style={styles.imageContainer}>
           <Image style={styles.eventImage} source={imgUrl} />
           <View style={styles.ticketsSoldContainer}>
-            <Text style={{color: Colors.purple}}>+{event.nTickets} personas han comprado entrada</Text>
+            <Text style={{color: Colors.purple}}>+{event.currentTickets} personas han comprado entrada</Text>
           </View>
         </View>
         
@@ -139,15 +147,16 @@ const styles = StyleSheet.create({
   },
   codeContainer : {
     width: '80%',
-    height: 100,
+    height: 300,
     backgroundColor: Colors.white,
     alignItems:'center',
     alignSelf: 'center',
+    borderRadius: 20,
   },
   code : {
-    fontSize: 36,
-    color: Colors.blue,
-  }
+    fontSize: 16,
+    margin: 10
+  },
 });
 
 export default TicketDetail

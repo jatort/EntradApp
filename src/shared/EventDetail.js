@@ -11,6 +11,7 @@ import EventInfo from './EventInfo'
 import { buyTickets } from '../lib/ticket'
 import { config } from '../config';
 import { useSelector } from "react-redux";
+import Colors from '../constants/Colors'
 
 const url = () => config.API_URL;
 const EventDetail = (props) => {
@@ -55,7 +56,7 @@ const EventDetail = (props) => {
     setDescription(props.event.description);
   }, [props.event]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (counter >= 1 && counter <= event.nTickets - event.currentTickets){
       fetch(`${url()}/order`, {
         method: 'POST',
@@ -74,85 +75,93 @@ const EventDetail = (props) => {
     }
   }
 
-  if(visible) return (
-    <WebView
-    source={{ uri: redirect, method: 'POST'}}
-    originWhitelist={['*']}
-    startInLoadingState={true}
-  />
-  )
+  const role = useSelector((state) => state.Reducers.role);
 
-  return (
-    <View style={styles.root}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("No completaste tu compra");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Selecciona la cantidad de entradas</Text>
-            <Text style={styles.modalText}>Tickets Disponibles: {event.nTickets - event.currentTickets}</Text>
-            <View style={styles.inputTicketsContainer}>
+    return (
+      <>
+      { visible ? 
+        <WebView
+          source={{ uri: redirect, method: 'POST'}}
+          originWhitelist={['*']}
+          startInLoadingState={true}
+        /> : 
+      <View style={styles.root}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("No completaste tu compra");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Selecciona la cantidad de entradas</Text>
+              <Text style={styles.modalText}>Tickets Disponibles: {event.nTickets - event.currentTickets}</Text>
+              <View style={styles.inputTicketsContainer}>
+                <Button
+                  style={[styles.button, styles.buttonColor]}
+                  color='white'
+                  onPress={() => {
+                    decrementCounter()
+                  }}
+                >
+                  -
+                </Button>
+                <TextInput
+                  value={`${counter}`}
+                  onChangeText={(number) => changeInput(number)}
+                  keyboardType='numeric'
+                />
+                <Button
+                  style={[styles.button, styles.buttonColor]}
+                  color='white'
+                  onPress={() => {
+                    incrementCounter()
+                  }}
+                >
+                  +
+                </Button>
+              </View>
               <Button
-                style={[styles.button, styles.buttonColor]}
-                color='white'
+                mode="contained"
+                style={styles.buyButton}
+                color='#414abe'
                 onPress={() => {
-                  decrementCounter()
+                  handleButtonClick()
                 }}
               >
-                -
-              </Button>
-              <TextInput
-                value={`${counter}`}
-                onChangeText={(number) => changeInput(number)}
-                keyboardType='numeric'
-              />
-              <Button
-                style={[styles.button, styles.buttonColor]}
-                color='white'
-                onPress={() => {
-                  incrementCounter()
-                }}
-              >
-                +
+                Comprar ${event.price * counter}
               </Button>
             </View>
+          </View>
+        </Modal>
+        <ScrollView>
+          <View style={styles.imageContainer}>
+            <Image style={styles.eventImage} source={imgUrl} />
+            <View style={styles.ticketsSoldContainer}>
+              <Text style={{color: Colors.purple}}>+{event.currentTickets} personas han comprado entrada</Text>
+            </View>
+          </View>
+          <EventInfo event={event} />
+        </ScrollView>
+        {role == "client" && 
+          <View style={styles.buttonContainer}>
             <Button
-              mode="contained"
-              style={styles.buyButton}
-              color='#414abe'
-              onPress={() => {
-                handleButtonClick()
-              }}
-            >
-              Comprar ${event.price * counter}
+                mode="contained"
+                style={styles.buyButton}
+                color='#414abe'
+                onPress={() => setModalVisible(true)}
+              >
+                Comprar Entrada ${event.price}
             </Button>
           </View>
-        </View>
-      </Modal>
-      <ScrollView>
-        <View style={styles.imageContainer}>
-          <Image style={styles.eventImage} source={imgUrl} />
-        </View>
-        <EventInfo event={event} />
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        <Button
-            mode="contained"
-            style={styles.buyButton}
-            color='#414abe'
-            onPress={() => setModalVisible(true)}
-          >
-            Comprar Entrada ${event.price}
-        </Button>
+        }
       </View>
-    </View>
-  )
+      }
+      </>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -243,7 +252,24 @@ const styles = StyleSheet.create({
   inputTicketsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  }
+  },
+  ticketsSoldContainer: {
+    width: '70%',
+    height: '12%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: -10,
+    right: 50,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    shadowColor: '#171717',
+    shadowOffset: {width: -10, height: 8},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5,
+  },
 });
 
 export default EventDetail
