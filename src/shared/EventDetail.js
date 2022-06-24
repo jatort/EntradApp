@@ -12,6 +12,7 @@ import { buyTickets } from '../lib/ticket'
 import { config } from '../config';
 import { useSelector } from "react-redux";
 import Colors from '../constants/Colors'
+import { createOrder } from '../lib/order';
 
 const url = () => config.API_URL;
 const EventDetail = (props) => {
@@ -58,17 +59,8 @@ const EventDetail = (props) => {
 
   const handleButtonClick = async () => {
     if (counter >= 1 && counter <= event.nTickets - event.currentTickets){
-      fetch(`${url()}/order`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          eventId: event._id,
-          nTickets: counter
-        }),
-      }).then(response => response.json()).then(resp => {setRedirect(resp.redirect); setVisible(true);})
+      createOrder(event._id, counter)
+      .then(resp => {setRedirect(resp.redirect); setVisible(true);})
       .catch(err => Alert.alert(`Error: ${err}`));
     } else {
       Alert.alert("Cantidad no válida, intenta denuevo");
