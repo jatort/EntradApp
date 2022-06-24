@@ -1,7 +1,7 @@
 import ValidateEmail from "../utils/validations/validateMail.js";
 import axios from "axios";
 import { showMessage } from "react-native-flash-message";
-
+import { check_apikey, check_secretkey } from "./regex.js";
 import { config } from "../config";
 
 const url = () => config.API_URL;
@@ -11,9 +11,9 @@ export const Register = async (
   email,
   password,
   passwordValidation,
-  role,
   apiKey,
-  secretKey
+  secretKey,
+  role
 ) => {
   if (password !== passwordValidation) {
     showMessage({
@@ -23,6 +23,16 @@ export const Register = async (
   } else if (!ValidateEmail(email)) {
     showMessage({
       message: "El email no es válido",
+      type: "danger",
+    });
+  } else if (!check_apikey(apiKey)) {
+    showMessage({
+      message: "Inválida API Key",
+      type: "danger",
+    });
+  } else if (!check_secretkey(secretKey)) {
+    showMessage({
+      message: "Inválida Secret Key",
       type: "danger",
     });
   } else {

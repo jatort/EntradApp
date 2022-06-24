@@ -21,14 +21,6 @@ export default function UserRegisterScreen({ navigation }) {
   // const [description, setDescription] = useState("");
 
   const submit = async () => {
-    if (!check_apikey(apiKey)) {
-      alert("Invalid API Key");
-      return;
-    }
-    if (!check_secretkey(secretKey)) {
-      alert("Invalid Secret Key");
-      return;
-    }
     const registerSuccess = await Register(
       username,
       email,
