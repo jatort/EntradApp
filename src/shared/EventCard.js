@@ -21,13 +21,18 @@ const EventCard = (props) => {
 
   useEffect(() => {
     setEvent(props.event);
-    setDate(getDatefromDate(props.event.date));
-    setHour(getHourFromDate(props.event.date));
     if (props.isOrder) {
       setIsOrder(true);
       setOrder(props.order);
     }
   }, [props.event]);
+
+  useEffect(() => {
+    if (event) {
+      setDate(getDatefromDate(event.date));
+      setHour(getHourFromDate(event.date));
+    }
+  }, [event])
  
   const imgUrl = event
     ? require('../../assets/logo-clean.png')
