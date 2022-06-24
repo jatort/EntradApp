@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import Colors from "../constants/Colors";
-import { Event } from "../types/event";
 import { getMyOrders } from "../lib/order";
 import EventCard from "./EventCard";
-
-/*type Props = {
-  events: Event[],
-  apiUrl: string,
-  title: string,
-  loadEvents: () => any,
-};*/
 
 // Este componente debe hacer fetch de la API para obtener
 // las ordenes de compra

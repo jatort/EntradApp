@@ -6,11 +6,8 @@ import { useDispatch } from "react-redux";
 import { Button, Surface, TextInput, Text } from "react-native-paper";
 
 export default function UserRegisterScreen({ navigation }) {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  // const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
 
@@ -32,18 +29,6 @@ export default function UserRegisterScreen({ navigation }) {
         <Text style={styles.title}>Crear Cuenta</Text>
         <Surface style={styles.box}>
           <View>
-            {/*             <TextInput
-              label="Nombre"
-              mode="outlined"
-              value={firstName}
-              onChangeText={(text) => setFirstName(text)}
-            /> */}
-            {/* <TextInput
-              label="Apellido"
-              mode="outlined"
-              value={lastName}
-              onChangeText={(text) => setLastName(text)}
-            /> */}
             <TextInput
               label="Email"
               mode="outlined"
@@ -61,12 +46,6 @@ export default function UserRegisterScreen({ navigation }) {
               onChangeText={(text) => setUsername(text)}
               autoCapitalize='none'
             />
-            {/* <TextInput
-              label="Fecha de Nacimiento"
-              mode="outlined"
-              value={birthDate}
-              onChangeText={(text) => setBirthDate(text)}
-            /> */}
             <TextInput
               label="Contraseña"
               mode="outlined"

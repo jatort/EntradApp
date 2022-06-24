@@ -16,6 +16,7 @@ export const getMyTickets = async () => {
     return validTickets.sort((a, b) => a.event.date > b.event.date);
   } catch (err) {
     console.log(err.message);
+    throw err;
   }
 };
 

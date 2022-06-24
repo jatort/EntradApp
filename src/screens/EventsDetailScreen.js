@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { Button } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
 import EventDetail from '../shared/EventDetail';
 
 export default function EventsDetailScreen({ route, navigation }) {

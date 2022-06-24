@@ -4,24 +4,15 @@ import {
 } from 'react-native'
 import { WebView } from 'react-native-webview';
 import { Button } from 'react-native-paper'
-import DateCard from './EventDateCard'
-import PlaceCard from './EventPlaceCard'
-import ProdCard from './EventProdCard'
 import EventInfo from './EventInfo'
-import { buyTickets } from '../lib/ticket'
-import { config } from '../config';
 import { useSelector } from "react-redux";
 import Colors from '../constants/Colors'
 import { createOrder } from '../lib/order';
 
-const url = () => config.API_URL;
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
-  const [name, setName] = useState('');
   const [visible, setVisible] = useState(false);
-  const [description, setDescription] = useState('');
   const [redirect, setRedirect] = useState('');
-  const token = useSelector((state) => state.Reducers.authToken);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [counter, setCounter] = useState(1);
@@ -53,8 +44,6 @@ const EventDetail = (props) => {
 
   useEffect(() => {
     setEvent(props.event);
-    setName(props.event.name);
-    setDescription(props.event.description);
   }, [props.event]);
 
   const handleButtonClick = async () => {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react'
-import PropTypes from 'prop-types'
 import LocationIcon from 'react-native-vector-icons/Entypo'
 import {
   View, Text,
@@ -8,13 +7,11 @@ import {
 const PlaceCard = (props) => {
 
   const [event, setEvent] = useState({});
-  // const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
 
   useEffect(() => {
     setEvent(props.event);
-    // setName(props.event.placeName)
     setAddress(props.event.address)
     setCity(props.event.city)
   }, [props.event]);
