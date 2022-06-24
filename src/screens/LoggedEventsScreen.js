@@ -1,9 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { Button } from "react-native-paper";
+import { StyleSheet, View} from "react-native";
 import { useDispatch } from "react-redux";
 import { Logout } from "../store/actions";
-import Colors from "../constants/Colors";
 import EventList from "../shared/EventList";
 import { getAllEvents } from "../lib/event";
 

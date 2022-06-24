@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import EventCard from "./EventCard";
 import Colors from "../constants/Colors";
-import { Event } from "../types/event";
 
 // Este componente debe hacer fetch de la API para obtener
 // los eventos en distintas url segun la pantalla

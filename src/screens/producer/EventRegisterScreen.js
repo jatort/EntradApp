@@ -95,12 +95,14 @@ export default function EventRegisterScreen({ navigation }) {
               mode="outlined"
               value={eventName}
               onChangeText={(text) => seteventName(text)}
+              testID="name"
             />
             <TextInput
               label="Categoría"
               mode="outlined"
               value={category}
               onChangeText={(text) => setcategory(text)}
+              testID="category"
             />
             <TextInput
               label="Ciudad"

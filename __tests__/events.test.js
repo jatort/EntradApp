@@ -9,6 +9,7 @@ import thunk from "redux-thunk";
 import App from "../App";
 import LoginScreen from "../src/screens/LoginScreen";
 import PublicEventsScreen from "../src/screens/PublicEventsScreen";
+import EventRegisterScreen from "../src/screens/producer/EventRegisterScreen";
 import { Login } from "../src/store/actions";
 
 import axios from "axios";
@@ -116,5 +117,26 @@ describe("Events screens", () => {
       fireEvent.press(getByTestId("exploreEvents")).expect();
       fireEvent.press(getByTestId("myEvents")).expect();
     });
+  });
+});
+
+describe("Event Register screen", () => {
+  const initialState = { output: 10, dispatch: jest.fn() };
+  const mockStore = configureStore([thunk]);
+  let store;
+  store = mockStore(initialState);
+
+  it("always render event register screen", () => {
+    const { queryAllByText, getByTestId, queryAllByTestId } = render(
+      <Provider store={store}>
+        <EventRegisterScreen />
+      </Provider>
+    );
+
+    fireEvent.changeText(getByTestId("name"), "chao");
+    fireEvent.changeText(getByTestId("category"), "hola");
+    expect(getByTestId("name").props.value).toBe("chao")
+    expect(getByTestId("category").props.value).toBe("hola")
+    expect(queryAllByTestId("dateTimePicker")).toHaveLength(0)
   });
 });

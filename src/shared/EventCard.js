@@ -1,11 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import LocationIcon from 'react-native-vector-icons/MaterialIcons'
 import DotIcon from 'react-native-vector-icons/Entypo'
 import {
   StyleSheet, TouchableOpacity, View, Text, Image,
 } from 'react-native'
-import { Event } from '../types/event';
 import { getDatefromDate, getHourFromDate } from '../lib/date';
 import EventCardFooter from './EventCardFooter';
 import OrderCardFooter from './OrderCardFooter';
@@ -21,13 +19,18 @@ const EventCard = (props) => {
 
   useEffect(() => {
     setEvent(props.event);
-    setDate(getDatefromDate(props.event.date));
-    setHour(getHourFromDate(props.event.date));
     if (props.isOrder) {
       setIsOrder(true);
       setOrder(props.order);
     }
   }, [props.event]);
+
+  useEffect(() => {
+    if (event) {
+      setDate(getDatefromDate(event.date));
+      setHour(getHourFromDate(event.date));
+    }
+  }, [event])
  
   const imgUrl = event
     ? require('../../assets/logo-clean.png')

@@ -12,7 +12,8 @@ export const getMyOrders = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.orders;
+    const orders = getValidOrders(response.data.orders);
+    return orders.sort((a,b) => a.event.date > b.event.date);
   } catch (err) {
     console.log("ERROR: " + err.message);
     throw err;
@@ -38,5 +39,14 @@ export const createOrder = async (eventId, nTickets) => {
     return response.data;
   } catch (err) {
     console.log("ERROR: " + err.message);
+    throw err;
   }
+}
+
+const getValidOrders = (orders) => {
+  const filteredOrders = [];
+  orders.forEach(order => {
+    if (order.event) filteredOrders.push(order);
+  });
+  return filteredOrders;
 }

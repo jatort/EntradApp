@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Image, StyleSheet, View } from "react-native";
-
 import Colors from "../constants/Colors";
-
-import { Button, Surface, TextInput, Text } from "react-native-paper";
-
+import { Button, Text } from "react-native-paper";
 import loginLogo from "../../assets/logo-clean.png";
 
 export default function RegisterScreen({ navigation }) {

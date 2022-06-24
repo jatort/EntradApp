@@ -10,7 +10,7 @@ const url = () => config.API_URL;
 export const getAllEvents = async () => {
   try {
     const response = await axios.get(`${url()}/event`);
-    return response.data.events;
+    return response.data.events.sort((a,b) => a.date > b.date);
   } catch (err) {
     console.log("ERROR: " + err.message);
   }
@@ -24,7 +24,7 @@ export const getMyEvents = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data.events;
+    return response.data.events.sort((a,b) => a.date < b.date);
   } catch (err) {
     throw err;
   }

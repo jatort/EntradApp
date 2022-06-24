@@ -12,9 +12,11 @@ export const getMyTickets = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return getValidTickets(response.data.tickets);
+    const validTickets = getValidTickets(response.data.tickets);
+    return validTickets.sort((a, b) => a.event.date > b.event.date);
   } catch (err) {
     console.log(err.message);
+    throw err;
   }
 };
 
