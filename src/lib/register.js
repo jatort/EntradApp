@@ -11,9 +11,9 @@ export const Register = async (
   email,
   password,
   passwordValidation,
+  role,
   apiKey,
-  secretKey,
-  role
+  secretKey
 ) => {
   if (password !== passwordValidation) {
     showMessage({
@@ -25,12 +25,12 @@ export const Register = async (
       message: "El email no es válido",
       type: "danger",
     });
-  } else if (!check_apikey(apiKey)) {
+  } else if (!check_apikey(apiKey) && role === "prod") {
     showMessage({
       message: "Inválida API Key",
       type: "danger",
     });
-  } else if (!check_secretkey(secretKey)) {
+  } else if (!check_secretkey(secretKey) && role === "prod") {
     showMessage({
       message: "Inválida Secret Key",
       type: "danger",
