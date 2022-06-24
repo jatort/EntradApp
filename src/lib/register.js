@@ -1,7 +1,7 @@
 import ValidateEmail from "../utils/validations/validateMail.js";
 import axios from "axios";
 import { showMessage } from "react-native-flash-message";
-
+import { check_apikey, check_secretkey } from "./regex.js";
 import { config } from "../config";
 
 const url = () => config.API_URL;
@@ -11,7 +11,9 @@ export const Register = async (
   email,
   password,
   passwordValidation,
-  role
+  role,
+  apiKey,
+  secretKey
 ) => {
   if (password !== passwordValidation) {
     showMessage({
@@ -23,6 +25,16 @@ export const Register = async (
       message: "El email no es válido",
       type: "danger",
     });
+  } else if (!check_apikey(apiKey) && role === "prod") {
+    showMessage({
+      message: "Inválida API Key",
+      type: "danger",
+    });
+  } else if (!check_secretkey(secretKey) && role === "prod") {
+    showMessage({
+      message: "Inválida Secret Key",
+      type: "danger",
+    });
   } else {
     // los inputs son correctos
     const body = {
@@ -30,6 +42,8 @@ export const Register = async (
       email: email,
       password: password,
       role: role,
+      apiKey: apiKey,
+      secretKey: secretKey,
     };
     try {
       const response = await axios.post(`${url()}/user`, body);

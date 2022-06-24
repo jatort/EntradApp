@@ -6,6 +6,7 @@ import Colors from "../constants/Colors";
 import { Button, Surface, TextInput, Text } from "react-native-paper";
 import { registerAnimation } from "react-native-animatable";
 import { Register } from "../lib/register";
+import { check_apikey } from "../lib/regex";
 
 export default function UserRegisterScreen({ navigation }) {
   /* const [producerName, setProducerName] = useState("");
@@ -15,6 +16,8 @@ export default function UserRegisterScreen({ navigation }) {
   // const [contactEmail, setContactEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
+  const [apiKey, setApikey] = useState("");
+  const [secretKey, setSecretKey] = useState("");
   // const [description, setDescription] = useState("");
 
   const submit = async () => {
@@ -23,6 +26,8 @@ export default function UserRegisterScreen({ navigation }) {
       email,
       password,
       passwordValidation,
+      apiKey,
+      secretKey,
       "prod"
     );
     if (registerSuccess) {
@@ -54,14 +59,14 @@ export default function UserRegisterScreen({ navigation }) {
               onChangeText={(text) => setEmail(text)}
               type="email-address"
               autoComplete="email"
-              autoCapitalize='none'
+              autoCapitalize="none"
             />
             <TextInput
               label="Usuario"
               mode="outlined"
               value={username}
               onChangeText={(text) => setUsername(text)}
-              autoCapitalize='none'
+              autoCapitalize="none"
             />
             {/* <TextInput
               label="Email de Contacto"
@@ -82,6 +87,18 @@ export default function UserRegisterScreen({ navigation }) {
               value={passwordValidation}
               onChangeText={(text) => setPasswordValidation(text)}
               secureTextEntry
+            />
+            <TextInput
+              label="apikey Flow"
+              mode="outlined"
+              value={apiKey}
+              onChangeText={(text) => setApikey(text)}
+            />
+            <TextInput
+              label="secretKey"
+              mode="outlined"
+              value={secretKey}
+              onChangeText={(text) => setSecretKey(text)}
             />
             {/* <TextInput
               label="Descripción"
