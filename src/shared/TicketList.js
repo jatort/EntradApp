@@ -36,7 +36,7 @@ const TicketList = (props) => {
 
   return (
     <View style={styles.root}>
-      {tickets.length != 0 && (
+      {tickets && (
         <FlatList
           data={tickets}
           renderItem={renderItem}

@@ -8,7 +8,7 @@ export const getDatefromDate = (date) => {
 
 export const getHourFromDate = (date) => {
   const tmp = new Date(date);
-  const hour = (tmp.getUTCHours() < 10 ? '0' : '') + tmp.getUTCHours();
-  const minutes = (tmp.getUTCMinutes() < 10 ? '0' : '1') + tmp.getUTCMinutes();
+  const hour = (tmp.getHours() < 10 ? '0' : '') + tmp.getHours();
+  const minutes = (tmp.getMinutes() < 10 ? '0' : '') + tmp.getMinutes();
   return `${hour}: ${minutes}`;
 };
