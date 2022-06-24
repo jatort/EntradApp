@@ -11,7 +11,9 @@ export const Register = async (
   email,
   password,
   passwordValidation,
-  role
+  role,
+  apiKey,
+  secretKey
 ) => {
   if (password !== passwordValidation) {
     showMessage({
@@ -30,6 +32,8 @@ export const Register = async (
       email: email,
       password: password,
       role: role,
+      api: apiKey,
+      secret: secretKey,
     };
     try {
       const response = await axios.post(`${url()}/user`, body);
