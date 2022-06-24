@@ -69,7 +69,7 @@ const EventDetail = (props) => {
           nTickets: counter
         }),
       }).then(response => response.json()).then(resp => {setRedirect(resp.redirect); setVisible(true);})
-      .catch(err => alert(`Error: ${err}`));
+      .catch(err => Alert.alert(`Error: ${err}`));
     } else {
       Alert.alert("Cantidad no válida, intenta denuevo");
     }

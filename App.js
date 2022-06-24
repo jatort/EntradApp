@@ -259,14 +259,14 @@ function ClientLoggedTabs() {
         testID="ExploreEvents"
       />
       <Tab.Screen
-        name="Mis Eventos"
-        component={MyEventsStack}
-        testID="myEvents"
+        name="Mis Tickets"
+        component={MyTicketsStack}
+        testID="myTickets"
         options={{
           headerShown: false,
           tabBarIcon: () => (
             <Image
-              source={require("./assets/calendarx2.png")}
+              source={require("./assets/ticketDrawer.png")}
               style={{ width: 20, height: 20 }}
             />
           ),
