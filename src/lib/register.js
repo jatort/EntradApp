@@ -42,8 +42,8 @@ export const Register = async (
       email: email,
       password: password,
       role: role,
-      api: apiKey,
-      secret: secretKey,
+      apiKey: apiKey,
+      secretKey: secretKey,
     };
     try {
       const response = await axios.post(`${url()}/user`, body);
