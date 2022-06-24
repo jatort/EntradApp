@@ -19,9 +19,23 @@ export const getMyOrders = async () => {
   }
 };
 
-export const createOrder = async () => {
-  try {
+export const createOrder = async (eventId, nTickets) => {
 
+  const token = await AsyncStorage.getItem("token");
+
+  try {
+    const body = {
+      eventId,
+      nTickets
+    };
+
+    const response = await axios.post(`${url()}/order`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
   } catch (err) {
     console.log("ERROR: " + err.message);
   }
